@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/SoundEffects/victory.wav</SourceFile>
+  <SourceTime>2018-02-16T00:06:46.0941485-05:00</SourceTime>
+  <DestFile>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/bin/Windows/SoundEffects/victory.xnb</DestFile>
+  <DestTime>2018-09-21T19:36:37.259987-04:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2016-03-30T02:36:08-04:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2016-03-30T02:36:08-04:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

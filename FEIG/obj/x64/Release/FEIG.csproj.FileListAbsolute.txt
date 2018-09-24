@@ -1,0 +1,2 @@
+D:\Documents\_ACTUAL DOCUMENTS\NEIT\Quarter 11\2D Games II\FireEmblemIGuess2\FEIG\obj\x64\Release\FEIG.csprojResolveAssemblyReference.cache
+D:\Documents\_ACTUAL DOCUMENTS\NEIT\Quarter 11\2D Games II\FireEmblemIGuess2\FEIG\obj\x64\Release\FEIG.csproj.CoreCompileInputs.cache

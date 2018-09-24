@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/Maps/Map1.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/TilePalettes/FIEG_Palette1.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/Cursor.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Fonts/Munro.spritefont</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Fonts/Lunchtime.spritefont</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/Icons.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/battleUI.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/MoveArrow.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/MoveTiles.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/FEIG HUD 2.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/Units/Units.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/Portraits/Portraits.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/ActionBar.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/FEIG Menu.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Fonts/MunroSmaller.spritefont</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Fonts/ComicSans.spritefont</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/SoundEffects/back.wav</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/SoundEffects/confirm.wav</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/SoundEffects/defeat.wav</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/SoundEffects/moveCursor.wav</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/SoundEffects/navigateBackward.wav</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/SoundEffects/navigateForward.wav</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/SoundEffects/victory.wav</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/SoundEffects/denied.wav</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/SoundEffects/menu.wav</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Music/Winds Across the Plains.ogg</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/FEIG_Logo.png</File>
+  </SourceFiles>
+</SourceFileCollection>
