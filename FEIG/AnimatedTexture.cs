@@ -74,35 +74,50 @@ namespace FEIG
             switch (loopType)
             {
                 case LoopType.All:
-                    if (currentFrame.X < spriteSheet.sheetDimensions.Y - 1)
-                        currentFrame.X++;
-                    else
-                    {
-                        currentFrame.X = 0;
-
-                        if (currentFrame.Y < spriteSheet.sheetDimensions.X - 1)
-                            currentFrame.Y++;
-                        else
-                            currentFrame.Y = 0;
-                    }
+                    LoopAll();
                     break;
 
                 case LoopType.Horizontal:
-                    if (currentFrame.X < spriteSheet.sheetDimensions.Y - 1)
-                        currentFrame.X++;
-                    else
-                        currentFrame.X = 0;
+                    LoopHorizontal();
                     break;
 
                 case LoopType.Vertical:
-                    if (currentFrame.Y < spriteSheet.sheetDimensions.X - 1)
-                        currentFrame.Y++;
-                    else
-                        currentFrame.Y = 0;
+                    LoopVertical();
                     break;
             }
 
             frameRect = new Rectangle(currentFrame.X * spriteSheet.frameSize.X, currentFrame.Y * spriteSheet.frameSize.Y, spriteSheet.frameSize.X, spriteSheet.frameSize.Y);
+        }
+
+        private void LoopAll()
+        {
+            if (currentFrame.X < spriteSheet.sheetDimensions.Y - 1)
+                currentFrame.X++;
+            else
+            {
+                currentFrame.X = 0;
+
+                if (currentFrame.Y < spriteSheet.sheetDimensions.X - 1)
+                    currentFrame.Y++;
+                else
+                    currentFrame.Y = 0;
+            }
+        }
+
+        private void LoopHorizontal()
+        {
+            if (currentFrame.X < spriteSheet.sheetDimensions.Y - 1)
+                currentFrame.X++;
+            else
+                currentFrame.X = 0;
+        }
+
+        private void LoopVertical()
+        {
+            if (currentFrame.Y < spriteSheet.sheetDimensions.X - 1)
+                currentFrame.Y++;
+            else
+                currentFrame.Y = 0;
         }
 
         public Rectangle GetFrameRect()

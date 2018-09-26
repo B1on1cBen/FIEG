@@ -48,12 +48,12 @@ namespace FEIG
 		public DamageType damageType;
 		public Point iconIndex;
 
-		public Weapon(string name, int might, int range, WeaponColor weaponColor, DamageType damageType, Point iconIndex)
+		public Weapon(string name, int might, int range, WeaponColor color, DamageType damageType, Point iconIndex)
 		{
 			this.name = name;
 			this.might = might;
 			this.range = range;
-			this.color = weaponColor;
+			this.color = color;
 			this.damageType = damageType;
 			this.iconIndex = iconIndex;
 		}

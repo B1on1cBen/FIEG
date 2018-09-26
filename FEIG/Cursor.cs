@@ -11,22 +11,19 @@ namespace FEIG
 {
     public class Cursor
     {
-        private static Point position; // Where the cursor is on the grid
-        public static Tile hoveredTile; // What tile is the cursor hovering over?
-        public static Unit hoveredUnit; // What unit is the cursor hovering over?
-        public static Unit selectedUnit; // What unit is the cursor currently selecting?
+        private static ActionBar actionBar;
+        private static PauseMenu pauseMenu;
 
-        static ActionBar actionBar; // A reference to couple the cursor to the action bar
-        static PauseMenu pauseMenu;
+        private static Point position;
+        public static Tile hoveredTile;
+        public static Unit hoveredUnit;
+        public static Unit selectedUnit;
 
-        // Allows disabling the cursor
         public bool active = true;
 
         private AnimatedTexture texture; // Make the cursor grow and shrink because it looks really really nice
         private Texture2D moveArrowTexture;
-
-        // Used to undo movement for units
-        private Point selectionPreviousPos;
+        private Point selectionPreviousPos; // Used to undo movement for units
 
         private static KeyboardState prevKeyboardState;
         private static GamePadState prevGamePadState;
@@ -194,6 +191,56 @@ namespace FEIG
             }
         }
 
+        private void OnSelectUnit()
+        {
+            if (CursorOverUnit && hoveredUnit.active && mapCursorMode == MapCursorMode.MoveCursor)
+            {
+                if (hoveredUnit.team == Team.Blue)
+                {
+                    selectedUnit = hoveredUnit;
+                    selectionPreviousPos = hoveredUnit.Position;
+
+                    RegisterValidMoveTiles();
+                }
+                else
+                    ToggleDangerZone(hoveredUnit);
+            }
+            else
+                Game1.deniedSound.Play();
+
+            if (selectedUnit != null && selectedUnit.team == Team.Blue)
+            {
+                mapCursorMode = MapCursorMode.MoveUnit;
+                Game1.menuSound.Play();
+            }
+        }
+
+        void RegisterValidMoveTiles()
+        {
+            validMoveTiles.Clear();
+
+            for (int y = 0; y < Level.grid.GetLength(1); y++)
+            {
+                for (int x = 0; x < Level.grid.GetLength(0); x++)
+                {
+                    if (selectedUnit.ValidPath(selectionPreviousPos, new Point(x, y)))
+                        validMoveTiles.Add(new Point(x, y));
+                }
+            }
+        }
+
+        void ToggleDangerZone(Unit target)
+        {
+            Game1.confirmSound.Play();
+
+            // Toggle selection to show danger zone
+            target.selected = !target.selected;
+            target.UpdateDangerZone();
+
+            // Reset global danger zone so that the next time we toggle it, everything will turn on
+            Game1.globalDangerZoneState = false;
+        }
+
         public void OnConfirm()
         {
             if (currentContext == mapContext)
@@ -202,53 +249,56 @@ namespace FEIG
                 {
                     case MapCursorMode.MoveCursor:
                         OnSelectUnit();
-                        if (selectedUnit != null && selectedUnit.team == Team.Blue)
-                        {
-                            mapCursorMode = MapCursorMode.MoveUnit;
-                            Game1.menuSound.Play();
-                        }
                         break;
 
                     case MapCursorMode.MoveUnit:
-                        if (validMoveTiles.Contains(position))
-                        {
-                            currentContext = actionBarContext;
-                            actionBar.Active = true;
-                            Game1.confirmSound.Play();
-                        }
-                        else
-                            Game1.deniedSound.Play();
+                        OnConfirmMoveUnit();
                         break;
 
                     case MapCursorMode.AttackUnit:
-                        if (selectedUnit.validAttackPoints.Contains(position))
-                        {
-                            Unit unit = Game1.GetUnit(position);
-                            if (unit != null && unit.team == Team.Red)
-                            {
-                                selectedUnit.StartCombat(unit);
-                                selectedUnit.active = false;
-                                FinishSelection();
-                                Game1.UpdateDangerZone();
-                                Game1.confirmSound.Play();
-                            }
-                            else
-                                Game1.deniedSound.Play();
-                        }
-                        else
-                            Game1.deniedSound.Play();
+                        OnConfirmAttackUnit();
                         break;
                 }
             }
             else if (currentContext == actionBarContext)
-            {
                 actionBar.OnConfirm();
-            }
             else if (currentContext == pauseMenuContext)
             {
                 pauseMenu.OnConfirm();
                 currentContext = mapContext;
             }
+        }
+
+        void OnConfirmMoveUnit()
+        {
+            if (validMoveTiles.Contains(position))
+            {
+                currentContext = actionBarContext;
+                actionBar.Active = true;
+                Game1.confirmSound.Play();
+            }
+            else
+                Game1.deniedSound.Play();
+        }
+
+        void OnConfirmAttackUnit()
+        {
+            if (selectedUnit.validAttackPoints.Contains(position))
+            {
+                Unit unit = Game1.GetUnit(position);
+                if (unit != null && unit.team == Team.Red)
+                {
+                    selectedUnit.StartCombat(unit);
+                    selectedUnit.active = false;
+                    FinishSelection();
+                    Game1.UpdateDangerZone();
+                    Game1.confirmSound.Play();
+                }
+                else
+                    Game1.deniedSound.Play();
+            }
+            else
+                Game1.deniedSound.Play();
         }
 
         public void OnBack()
@@ -410,57 +460,14 @@ namespace FEIG
             }
         }
 
-        private void OnSelectUnit()
-        {
-            if (CursorOverUnit && hoveredUnit.active && mapCursorMode == MapCursorMode.MoveCursor)
-            {
-                if (hoveredUnit.team == Team.Blue)
-                {
-                    selectedUnit = hoveredUnit;
-                    selectionPreviousPos = hoveredUnit.Position;
-
-                    validMoveTiles.Clear();
-
-                    // Register tiles that are valid for unit to move to
-                    for (int y = 0; y < Level.grid.GetLength(1); y++)
-                    {
-                        for (int x = 0; x < Level.grid.GetLength(0); x++)
-                        {
-                            if (selectedUnit.ValidPath(selectionPreviousPos, new Point(x, y)))
-                                validMoveTiles.Add(new Point(x, y));
-                        }
-                    }
-                }
-                else
-                {
-                    Game1.confirmSound.Play();
-
-                    // Toggle selection to show danger zone
-                    hoveredUnit.selected = !hoveredUnit.selected;
-                    hoveredUnit.UpdateDangerZone();
-
-                    // Reset global danger zone so that the next time we toggle it, everything will turn on
-                    Game1.globalDangerZoneState = false;
-                }
-            }
-            else
-                Game1.deniedSound.Play();
-        }
-
         public bool InMoveUnitMode
         {
-            get
-            {
-                return currentContext == mapContext && mapCursorMode == MapCursorMode.MoveUnit;
-            }
+            get { return currentContext == mapContext && mapCursorMode == MapCursorMode.MoveUnit; }
         }
 
         public bool InAttackMode
         {
-            get
-            {
-                return currentContext == mapContext && mapCursorMode == MapCursorMode.AttackUnit;
-            }
+            get { return currentContext == mapContext && mapCursorMode == MapCursorMode.AttackUnit; }
         }
     }
 }
