@@ -241,7 +241,7 @@ namespace FEIG
 
         protected void InitializeObjects()
         {
-            palette = new Palette(paletteTexture, new Point(4, 4), 0, 1, 1, 3, 2, 3, 3, 4);
+            palette = new Palette(paletteTexture, new Point(4, 4), new PaletteRow(0, 1), new PaletteRow(1, 3), new PaletteRow(2, 3), new PaletteRow(3, 4));
             level = new Level(palette, mapTexture);
             hud = new HUD(hudTexture, iconTexture, font, hpFont);
             actionBar = new ActionBar(actionBarTexture, promptFont);

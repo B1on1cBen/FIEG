@@ -6,6 +6,18 @@ using System;
 
 namespace FEIG
 {
+    public class PaletteRow
+    {
+        public int rowIndex;
+        public int cellCount;
+
+        public PaletteRow(int rowIndex, int cellCount)
+        {
+            this.rowIndex = rowIndex;
+            this.cellCount = cellCount;
+        }
+    }
+
     // This class stores all of the tiles for a level palette texture in an easily accessible way.
     public class Palette
     {
@@ -22,18 +34,11 @@ namespace FEIG
 
         public Palette(Texture2D texture,
                        Point paletteSize,
-
-                       int plainsRow,     // The row where plains are located within the palette.
-                       int plainsCount,   // How many types of plains are there in the row?
-
-                       int forestRow,     // The row where forests are located within the palette.
-                       int forestCount,   // How many types of forests are there in the row?
-
-                       int mountainRow,   // The row where mountains are located within the palette.
-                       int mountainCount, // How many types of mountains are there in the row?
-
-                       int waterRow,      // The row where water is located within the palette.
-                       int waterCount)    // How many types of water are there in the row?
+                       PaletteRow plainsPalette,
+                       PaletteRow forestPalette,
+                       PaletteRow mountainsPalette,
+                       PaletteRow waterPalette
+        )
         {
             rand = new Random();
 
@@ -41,30 +46,30 @@ namespace FEIG
             this.paletteSize = paletteSize; // How many tiles across and how many 
             tileSize = new Point(texture.Width / paletteSize.X, texture.Height / paletteSize.Y);
 
-            plainsTextures = new Rectangle[plainsCount];
-            forestTextures = new Rectangle[forestCount];
-            mountainTextures = new Rectangle[mountainCount];
-            waterTextures = new Rectangle[waterCount];
+            plainsTextures = new Rectangle[plainsPalette.cellCount];
+            forestTextures = new Rectangle[forestPalette.cellCount];
+            mountainTextures = new Rectangle[mountainsPalette.cellCount];
+            waterTextures = new Rectangle[waterPalette.cellCount];
 
             // Set up all of the rects for each type of tile
             for (int y = 0; y < paletteSize.Y; y++) // Rows second
             {
                 for (int x = 0; x < paletteSize.X; x++) // Columns first
                 {
-                    if (y == plainsRow)
-                        if (x < plainsCount)
+                    if (y == plainsPalette.rowIndex)
+                        if (x < plainsPalette.cellCount)
                             plainsTextures[x] = new Rectangle(new Point(x * tileSize.X, y * tileSize.Y), tileSize);
 
-                    if (y == forestRow)
-                        if (x < forestCount)
+                    if (y == forestPalette.rowIndex)
+                        if (x < forestPalette.cellCount)
                             forestTextures[x] = new Rectangle(new Point(x * tileSize.X, y * tileSize.Y), tileSize);
 
-                    if (y == mountainRow)
-                        if (x < mountainCount)
+                    if (y == mountainsPalette.rowIndex)
+                        if (x < mountainsPalette.cellCount)
                             mountainTextures[x] = new Rectangle(new Point(x * tileSize.X, y * tileSize.Y), tileSize);
 
-                    if (y == waterRow)
-                        if (x < waterCount)
+                    if (y == waterPalette.rowIndex)
+                        if (x < waterPalette.cellCount)
                             waterTextures[x] = new Rectangle(new Point(x * tileSize.X, y * tileSize.Y), tileSize);
                 }
             }
