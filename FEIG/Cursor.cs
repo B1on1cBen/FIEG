@@ -16,8 +16,8 @@ namespace FEIG
         public static Unit hoveredUnit; // What unit is the cursor hovering over?
         public static Unit selectedUnit; // What unit is the cursor currently selecting?
 
-        public static ActionBar actionBar; // A reference to couple the cursor to the action bar
-        public static PauseMenu pauseMenu;
+        static ActionBar actionBar; // A reference to couple the cursor to the action bar
+        static PauseMenu pauseMenu;
 
         // Allows disabling the cursor
         public bool active = true;
@@ -91,13 +91,15 @@ namespace FEIG
         // Where the cursor can go when in "attack" mode
         public static List<Point> validAttackTiles = new List<Point>();
 
-        public Cursor(Point startingPosition, Texture2D texture, Texture2D moveArrowTexture)
+        public Cursor(Point startingPosition, Texture2D texture, Texture2D moveArrowTexture, ActionBar actionBar, PauseMenu pauseMenu)
         {
             currentContext = mapContext;
             mapCursorMode = MapCursorMode.MoveCursor;
 
             this.texture = new AnimatedTexture(new SpriteSheet(texture, new Point(1, 2), Palette.tileSize), 500);
             this.moveArrowTexture = moveArrowTexture;
+            Cursor.actionBar = actionBar;
+            Cursor.pauseMenu = pauseMenu;
 
             position = startingPosition;
             hoveredUnit = Game1.GetUnit(startingPosition);
@@ -224,7 +226,7 @@ namespace FEIG
                             Unit unit = Game1.GetUnit(position);
                             if (unit != null && unit.team == Team.Red)
                             {
-                                selectedUnit.Attack(unit);
+                                selectedUnit.StartCombat(unit);
                                 selectedUnit.active = false;
                                 FinishSelection();
                                 Game1.UpdateDangerZone();

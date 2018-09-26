@@ -24,19 +24,17 @@ namespace FEIG
 
         private static SpriteFont font;
 
-        public ActionBar(Texture2D buttonTexture, SpriteFont promptFont)
+        public ActionBar(Texture2D buttonTexture, SpriteFont font, string prompt)
         {
-            font = promptFont;
-
+            ActionBar.font = font;
             selectedButton = BarButtons.Attack;
-
             this.buttonTexture = buttonTexture;
+            this.prompt = prompt;
 
             int width = buttonTexture.Width;
             int height = buttonTexture.Height / 3;
 
             buttonRects = new Rectangle[3];
-
             buttonRects[0] = new Rectangle(0, 0, width, height);
             buttonRects[1] = new Rectangle(0, height, width, height);
             buttonRects[2] = new Rectangle(0, height * 2, width, height);

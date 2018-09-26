@@ -137,6 +137,7 @@ namespace FEIG
         public int drawOrder;
         private Point position; // This has a public accessor
         private int currentHP; // This has a public accessor
+        private int currentCombatRounds = 1;
 
         public List<Point> validAttackPoints = new List<Point>();
         private List<Point> validMovePoints = new List<Point>();
@@ -217,60 +218,39 @@ namespace FEIG
             }
         }
 
-        public void Attack(Unit target)
+        public void StartCombat(Unit target)
         {
-            Console.WriteLine(name + " attacked " + target.name + "(" + GetMyTypeMatchUp(target.weapon) + ")");
+            currentCombatRounds = 1;
+            target.currentCombatRounds = 1;
+            currentCombatRounds *= MathHelper.Clamp((stats.SPD - target.stats.SPD) / 5, 1, 2);
 
-            // Base damage for Attacker and Defender
-            float myDamage = weapon.might + stats.ATK;
-            float defenderDamage = target.weapon.might + target.stats.ATK;
-
-            // How many times each unit will attack the other
-            int attackerRounds = 1;
-            int defenderRounds = 1;
-
-            // Multiply damages by type matchup modifiers
-            myDamage *= damageModifiers[(int)GetMyTypeMatchUp(target.weapon)];
-            defenderDamage *= damageModifiers[(int)target.GetMyTypeMatchUp(weapon)];
-
-            // Subtract damage according to weapon damage types and their corresponding defensive stats.
-            myDamage -= target.stats[(int)weapon.damageType];
-            defenderDamage -= stats[(int)target.weapon.damageType];
-
-            // Clamp damage values so they are never below 0;
-            myDamage = MathHelper.Clamp(myDamage, 0, 999);
-            defenderDamage = MathHelper.Clamp(defenderDamage, 0, 999);
-
-            // Figure out how many rounds each unit will have
-            attackerRounds *= MathHelper.Clamp((stats.SPD - target.stats.SPD) / 5, 1, 2);
-
-            // Figure out if defender can counterattack
             if (target.DistanceTo(position) != target.weapon.range)
-                defenderRounds = 0;
+                target.currentCombatRounds = 0;
             else
-                defenderRounds *= MathHelper.Clamp((target.stats.SPD - stats.SPD) / 5, 1, 2);
+                target.currentCombatRounds *= MathHelper.Clamp((target.stats.SPD - stats.SPD) / 5, 1, 2);
 
-            // Start slapping eachother until finished or one falls down
-            while (attackerRounds > 0 || defenderRounds > 0)
-            {
-                if (attackerRounds > 0)
-                {
-                    attackerRounds--;
-                    Console.WriteLine("Defender " + target.name + " took " + (int)myDamage + "!");
-                    target.CurrentHP -= (int)myDamage;
-                    if (!target.alive) return;
-                }
+            Attack(target);
+        }
 
-                if (defenderRounds > 0)
-                {
-                    defenderRounds--;
-                    Console.WriteLine("Attacker " + name + " took " + (int)defenderDamage + "!");
-                    CurrentHP -= (int)defenderDamage;
-                    if (!alive) return;
-                }
-            }
+        void Attack(Unit target)
+        {
+            if (currentCombatRounds == 0)
+                return;
 
-            Console.WriteLine("");
+            float myDamage = weapon.might + stats.ATK;
+            myDamage *= damageModifiers[(int)GetMyTypeMatchUp(target.weapon)];
+            myDamage -= target.stats[(int)weapon.damageType];
+            myDamage = MathHelper.Clamp(myDamage, 0, 999);
+
+            Console.WriteLine(name + " attacked " + target.name + "(" + GetMyTypeMatchUp(target.weapon) + ")");
+            Console.WriteLine(target.name + " took " + (int)myDamage + "!\n");
+            target.CurrentHP -= (int)myDamage;
+            currentCombatRounds--;
+
+            if (!target.alive)
+                return;
+
+            target.Attack(this);
         }
 
         public void AIRoutine()
@@ -280,77 +260,78 @@ namespace FEIG
 
             validMovePoints.Clear();
             UpdateDangerZone();
-            Unit[] targets = GetTargetableUnits();
+            Unit[] targetsInRange = GetTargetableUnits();
 
-            // If there is someone in range, do things, and start aggro
-            if (targets.Length > 0)
+            if (targetsInRange.Length <= 0 && !enemyAggro)
             {
-                enemyAggro = true; // Oh, you've done it now!
-
-                Unit target = ChooseTarget(targets);
-                if (target == null)
-                {
-                    active = false;
-                    return;
-                }
-
-                // Move to target
-                Point movePoint = GetAttackingPosition(target.position);
-
-                if (movePoint == new Point(-1, -1))
-                {
-                    active = false;
-                    return;
-                }
-
-                Position = movePoint;
-
-                // ATTACK!!!
-                Attack(target);
-
                 active = false;
-            }
-            // If nothing in range, but aggro started, advance!
-            else if (enemyAggro)
-            {
-                List<Unit> enemies = new List<Unit>();
-
-                foreach (Unit unit in Game1.units)
-                {
-                    if (unit.team != team && unit.alive)
-                        enemies.Add(unit);
-                }
-
-                Unit target = ChooseTarget(enemies.ToArray());
-                if (target == null)
-                {
-                    active = false;
-                    return;
-                }
-
-                int smallestDistance = Level.levelWidth * Level.levelHeight;
-                int smallestIndex = 0;
-
-                // Find closest point to target
-                for (int i = 0; i < validMovePoints.Count; i++)
-                {
-                    int distance = DistanceBetween(validMovePoints[i], target.position);
-
-                    if (smallestDistance < distance)
-                    {
-                        smallestDistance = distance;
-                        smallestIndex = i;
-                    }
-                }
-
-                // Go to closest point to target
-                Position = validMovePoints[smallestIndex];
-                active = false;
+                return;
             }
 
-            // Do nothing
+            if (targetsInRange.Length > 0)
+                AttackPlayerUnit(targetsInRange);
             else
+                AdvanceOnPlayerUnits();
+        }
+
+        void AttackPlayerUnit(Unit[] targetsInRange)
+        {
+            enemyAggro = true;
+
+            Unit target = ChooseTarget(targetsInRange);
+            if (target == null)
+            {
                 active = false;
+                return;
+            }
+
+            Point movePoint = GetAttackingPosition(target.position);
+            if (movePoint == new Point(-1))
+            {
+                active = false;
+                return;
+            }
+            Position = movePoint;
+
+            StartCombat(target);
+            active = false;
+        }
+
+        void AdvanceOnPlayerUnits()
+        {
+            List<Unit> enemies = new List<Unit>();
+
+            foreach (Unit unit in Game1.units)
+            {
+                if (unit.team != team && unit.alive)
+                    enemies.Add(unit);
+            }
+
+            Unit target = ChooseTarget(enemies.ToArray());
+            if (target == null)
+            {
+                active = false;
+                return;
+            }
+
+            int smallestDistance = Level.levelWidth * Level.levelHeight;
+            int smallestIndex = 0;
+
+            // Find closest point to target
+            for (int i = 0; i < validMovePoints.Count; i++)
+            {
+                int distance = DistanceBetween(validMovePoints[i], target.position);
+
+                if (smallestDistance < distance)
+                {
+                    smallestDistance = distance;
+                    smallestIndex = i;
+                }
+            }
+
+            // Go to closest point to target
+            Position = validMovePoints[smallestIndex];
+            active = false;
         }
 
         /// <summary>

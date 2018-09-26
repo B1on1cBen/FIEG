@@ -157,9 +157,8 @@ namespace FEIG
             endFont = Content.Load<SpriteFont>("Fonts/ComicSans");
         }
 
-        protected void InitializeUnits()
+        protected void InitializeRedTeam()
         {
-            #region Red Team
             // WENDY
             units.Add(new Unit(0)
                 .SetName("Wendy")
@@ -203,9 +202,10 @@ namespace FEIG
                 .SetStats(new Stats(hp: 35, atk: 39, spd: 31, def: 12, res: 30))
                 .SetMoveType(MoveType.Infantry)
             );
-            #endregion Red Team
+        }
 
-            #region Blue Team
+        protected void InitializeBlueTeam()
+        {
             // FELICIA
             units.Add(new Unit(4)
                 .SetName("Felicia")
@@ -249,10 +249,16 @@ namespace FEIG
                 .SetStats(new Stats(hp: 36, atk: 37, spd: 36, def: 25, res: 22))
                 .SetMoveType(MoveType.Flier)
             );
-            #endregion Blue Team
         }
 
-        protected void InitializeObjects()
+        protected void InitializeUnits()
+        {
+            InitializeRedTeam();
+            InitializeBlueTeam();
+            MoveUnitsToSpawns();
+        }
+
+        protected void InitializeLevel()
         {
             waterTileAnimated = new AnimatedTexture(new SpriteSheet(waterTexture, new Point(2, 2), new Point(64)), 100);
 
@@ -264,9 +270,14 @@ namespace FEIG
             );
 
             level = new Level(palette, mapTexture);
-            hud = new HUD(hudTexture, iconTexture, font, hpFont);
-            actionBar = new ActionBar(actionBarTexture, promptFont);
+        }
+
+        protected void InitializeMenus()
+        {
             pauseMenu = new PauseMenu(pauseMenuTexture);
+            hud = new HUD(hudTexture, iconTexture, font, hpFont);
+            actionBar = new ActionBar(actionBarTexture, promptFont, "Z/Enter - Confirm, X/Backspace - Back,\n" +
+                                                                    "Esc - Menu, Arrows - Navigate");
         }
 
         protected void SetupWindow()
@@ -283,24 +294,16 @@ namespace FEIG
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             LoadTextures();
+            InitializeLevel();
             LoadSounds();
             LoadMusic();
             LoadFonts();
-            InitializeObjects();
             SetupWindow();
             InitializeUnits();
-            MoveUnitsToSpawns();
+            InitializeMenus();
 
-            // Initializing cursor last            
-            cursor = new Cursor(new Point(2, 7), cursorTexture, moveArrowTexture);
-
-            // Coupling some things because I didn't organize things well enough here.
+            cursor = new Cursor(new Point(2, 7), cursorTexture, moveArrowTexture, actionBar, pauseMenu);
             ActionBar.cursor = cursor;
-            actionBar.SetPrompt("Z/Enter - Confirm, X/Backspace - Back,\n" +
-                                "Esc - Menu, Arrows - Navigate");
-
-            Cursor.actionBar = actionBar;
-            Cursor.pauseMenu = pauseMenu;
             PauseMenu.cursor = cursor;
         }
 
