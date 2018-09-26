@@ -130,7 +130,8 @@ namespace FEIG
                     if (key.Key.IsPressed())
                         key.Value.action();
 
-                    UpdateHoldingKey(key, gameTime);
+                    if (key.Value.useTurbo && key.Key.IsHeld())
+                        UpdateHoldingKey(key, gameTime);
                 }
 
                 prevKeyboardState = Keyboard.GetState();
@@ -144,9 +145,6 @@ namespace FEIG
 
         void UpdateHoldingKey(KeyValuePair<CursorInput, CursorAction> key, GameTime gameTime)
         {
-            if (!key.Value.useTurbo || key.Key.IsHeld())
-                return;
-
             // Reset timers if new key is held
             if (key.Key.lastHoldWasKey)
             {

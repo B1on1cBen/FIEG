@@ -522,47 +522,29 @@ namespace FEIG
             Point dif = B - A;
             Point current = A;
             Point nextPoint = current;
-
-            bool canPass = true;
             int distanceMod = 0;
 
-            while (canPass)
-            {
-                // Make the next point's X increase, either positive or negative
-                if (dif.X > 0)
-                    nextPoint.X++;
-                else
-                    nextPoint.X--;
+            nextPoint.X += Math.Sign(dif.X);
+            TileType tile = Level.GetTile(nextPoint).type;
 
-                TileType tile = Level.GetTile(nextPoint).type;
+            if (!CanPass(tile))
+                return false;
 
-                // Can't pass onto next point if the current point is a forest and we are infantry (infantry get slowed down by forests.)
-                if (moveType == MoveType.Infantry && tile == TileType.Forest)
-                    distanceMod--;
+            // Can't pass onto next point if the current point is a forest and we are infantry (infantry get slowed down by forests.)
+            if (moveType == MoveType.Infantry && tile == TileType.Forest)
+                distanceMod--;
 
-                canPass = CanPass(tile);
+            if (DistanceTo(nextPoint) > moveRanges[(int)moveType] + distanceMod)
+                return false;
 
-                if (DistanceTo(nextPoint) > moveRanges[(int)moveType] + distanceMod)
-                    canPass = false;
+            // Cannot pass through enemies
+            Unit unit = Game1.GetUnit(nextPoint);
+            if (unit != null && unit.team != team)
+                return false;
 
-                // Cannot pass through enemies
-                Unit unit = Game1.GetUnit(nextPoint);
-                if (unit != null && unit.team != team)
-                    canPass = false;
+            current = nextPoint;
 
-                // Make the current point equal the next point if
-                // next point is valid.
-                if (canPass)
-                    current = nextPoint;
-                else
-                    return false;
-
-                // End with a true if we are at the goal
-                if (current.X == B.X)
-                    return true;
-            }
-
-            return false;
+            return ValidAlongX(current, B);
         }
 
         private bool ValidAlongY(Point A, Point B)
@@ -573,44 +555,29 @@ namespace FEIG
             Point dif = B - A;
             Point current = A;
             Point nextPoint = current;
-
-            bool canPass = true;
-
             int distanceMod = 0;
 
-            while (canPass)
-            {
-                // Make the next point's X increase, either positive or negative
-                if (dif.Y > 0)
-                    nextPoint.Y++;
-                else
-                    nextPoint.Y--;
+            nextPoint.Y += Math.Sign(dif.Y);
+            TileType tile = Level.GetTile(nextPoint).type;
 
-                TileType tile = Level.GetTile(nextPoint).type;
+            if (!CanPass(tile))
+                return false;
 
-                if (moveType == MoveType.Infantry && tile == TileType.Forest)
-                    distanceMod--;
+            if (moveType == MoveType.Infantry && tile == TileType.Forest)
+                distanceMod--;
 
-                canPass = CanPass(tile);
+            // Can't pass onto next point if the current point is a forest and we are infantry (infantry get slowed down by forests.)
+            if (DistanceTo(nextPoint) > moveRanges[(int)moveType] + distanceMod)
+                return false;
 
-                // Can't pass onto next point if the current point is a forest and we are infantry (infantry get slowed down by forests.)
-                //if (moveType == MoveType.Infantry && Level.GetTile(current).type == TileType.Forest && Math.Abs(dif.X) >= 2)
-                if (DistanceTo(nextPoint) > moveRanges[(int)moveType] + distanceMod)
-                    canPass = false;
+            // Cannot pass through enemies
+            Unit unit = Game1.GetUnit(nextPoint);
+            if (unit != null && unit.team != team)
+                return false;
 
-                // Make the current point equal the next point if
-                // next point is valid.
-                if (canPass)
-                    current = nextPoint;
-                else
-                    return false;
+            current = nextPoint;
 
-                // End with a true if we are at the goal
-                if (current.Y == B.Y)
-                    return true;
-            }
-
-            return false;
+            return ValidAlongY(current, B);
         }
 
         private bool CanCounterMe(Unit unit)
