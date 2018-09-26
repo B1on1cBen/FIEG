@@ -522,47 +522,32 @@ namespace FEIG
             Point dif = B - A;
             Point current = A;
             Point nextPoint = current;
-
-            bool canPass = true;
             int distanceMod = 0;
 
-            while (canPass)
+            while (current.X != B.X)
             {
-                // Make the next point's X increase, either positive or negative
-                if (dif.X > 0)
-                    nextPoint.X++;
-                else
-                    nextPoint.X--;
-
+                nextPoint.X += Math.Sign(dif.X);
                 TileType tile = Level.GetTile(nextPoint).type;
+
+                if (!CanPass(tile))
+                    return false;
 
                 // Can't pass onto next point if the current point is a forest and we are infantry (infantry get slowed down by forests.)
                 if (moveType == MoveType.Infantry && tile == TileType.Forest)
                     distanceMod--;
 
-                canPass = CanPass(tile);
-
                 if (DistanceTo(nextPoint) > moveRanges[(int)moveType] + distanceMod)
-                    canPass = false;
+                    return false;
 
                 // Cannot pass through enemies
                 Unit unit = Game1.GetUnit(nextPoint);
                 if (unit != null && unit.team != team)
-                    canPass = false;
-
-                // Make the current point equal the next point if
-                // next point is valid.
-                if (canPass)
-                    current = nextPoint;
-                else
                     return false;
 
-                // End with a true if we are at the goal
-                if (current.X == B.X)
-                    return true;
+                current = nextPoint;
             }
 
-            return false;
+            return true;
         }
 
         private bool ValidAlongY(Point A, Point B)
