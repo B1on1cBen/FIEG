@@ -1,0 +1,2 @@
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\obj\x64\Debug\FEIG.csprojAssemblyReference.cache
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\obj\x64\Debug\FEIG.csproj.CoreCompileInputs.cache

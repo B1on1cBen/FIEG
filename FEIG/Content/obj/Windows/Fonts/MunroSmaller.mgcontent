@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Fonts/MunroSmaller.spritefont</SourceFile>
+  <SourceFile>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Fonts/MunroSmaller.spritefont</SourceFile>
   <SourceTime>2018-02-16T00:06:46.0461466-05:00</SourceTime>
-  <DestFile>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/bin/Windows/Fonts/MunroSmaller.xnb</DestFile>
-  <DestTime>2018-09-21T19:36:34.5440206-04:00</DestTime>
+  <DestFile>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/bin/Windows/Fonts/MunroSmaller.xnb</DestFile>
+  <DestTime>2018-09-26T03:23:44.6275865-04:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2016-03-30T02:36:08-04:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

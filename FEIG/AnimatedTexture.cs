@@ -18,28 +18,43 @@ namespace FEIG
         }
 
         private LoopType loopType;
-        private Texture2D texture;
-        private Point frameSize;
         private float frameRate;
-        private int rows, cols;
-        private Point frameIndex; // What frame is the animated texture on?
+        private Point currentFrame;
         private float frameTimer;
         private Rectangle frameRect;
 
-        public AnimatedTexture(Texture2D texture, int rows, int cols, Point frameSize, Point startFrame, LoopType loopType, float frameRate)
+        SpriteSheet spriteSheet;
+
+        public AnimatedTexture(SpriteSheet spriteSheet, float frameRate)
         {
-            this.rows = rows;
-            this.cols = cols;
-            this.texture = texture;
-            this.frameSize = frameSize;
+            Initialize(spriteSheet, new Point(0, 0), LoopType.All, frameRate);
+        }
+
+        public AnimatedTexture(SpriteSheet spriteSheet, Point startFrame, float frameRate)
+        {
+            Initialize(spriteSheet, startFrame, LoopType.All, frameRate);
+        }
+
+        public AnimatedTexture(SpriteSheet spriteSheet, LoopType loopType, float frameRate)
+        {
+            Initialize(spriteSheet, new Point(0, 0), loopType, frameRate);
+        }
+
+        public AnimatedTexture(SpriteSheet spriteSheet, Point startFrame, LoopType loopType, float frameRate)
+        {
+            Initialize(spriteSheet, startFrame, loopType, frameRate);
+        }
+
+        private void Initialize(SpriteSheet spriteSheet, Point startFrame, LoopType loopType, float frameRate)
+        {
+            this.spriteSheet = spriteSheet;
             this.loopType = loopType;
             this.frameRate = frameRate;
 
             frameTimer = frameRate;
-            frameIndex = startFrame;
-            frameRect = new Rectangle(startFrame.X * frameSize.X, startFrame.Y * frameSize.Y, frameSize.X, frameSize.Y);
+            currentFrame = startFrame;
+            frameRect = new Rectangle(startFrame.X * spriteSheet.frameSize.X, startFrame.Y * spriteSheet.frameSize.Y, spriteSheet.frameSize.X, spriteSheet.frameSize.Y);
 
-            // Added so that we can update all animated textures all at once
             AnimatedTextures.Add(this);
         }
 
@@ -59,35 +74,35 @@ namespace FEIG
             switch (loopType)
             {
                 case LoopType.All:
-                    if (frameIndex.X < cols - 1)
-                        frameIndex.X++;
+                    if (currentFrame.X < spriteSheet.sheetDimensions.Y - 1)
+                        currentFrame.X++;
                     else
                     {
-                        frameIndex.X = 0;
+                        currentFrame.X = 0;
 
-                        if (frameIndex.Y < rows - 1)
-                            frameIndex.Y++;
+                        if (currentFrame.Y < spriteSheet.sheetDimensions.X - 1)
+                            currentFrame.Y++;
                         else
-                            frameIndex.Y = 0;
+                            currentFrame.Y = 0;
                     }
                     break;
 
                 case LoopType.Horizontal:
-                    if (frameIndex.X < cols - 1)
-                        frameIndex.X++;
+                    if (currentFrame.X < spriteSheet.sheetDimensions.Y - 1)
+                        currentFrame.X++;
                     else
-                        frameIndex.X = 0;
+                        currentFrame.X = 0;
                     break;
 
                 case LoopType.Vertical:
-                    if (frameIndex.Y < rows - 1)
-                        frameIndex.Y++;
+                    if (currentFrame.Y < spriteSheet.sheetDimensions.X - 1)
+                        currentFrame.Y++;
                     else
-                        frameIndex.Y = 0;
+                        currentFrame.Y = 0;
                     break;
             }
 
-            frameRect = new Rectangle(frameIndex.X * frameSize.X, frameIndex.Y * frameSize.Y, frameSize.X, frameSize.Y);
+            frameRect = new Rectangle(currentFrame.X * spriteSheet.frameSize.X, currentFrame.Y * spriteSheet.frameSize.Y, spriteSheet.frameSize.X, spriteSheet.frameSize.Y);
         }
 
         public Rectangle GetFrameRect()
@@ -97,7 +112,7 @@ namespace FEIG
 
         public Texture2D GetTexture()
         {
-            return texture;
+            return spriteSheet.texture;
         }
     }
 }

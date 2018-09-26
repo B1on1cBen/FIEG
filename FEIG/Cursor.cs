@@ -97,7 +97,11 @@ namespace FEIG
             mapCursorMode = MapCursorMode.MoveCursor;
 
             position = startingPosition;
-            this.texture = new AnimatedTexture(texture, 1, 2, Palette.tileSize, new Point(0, 0), AnimatedTexture.LoopType.Horizontal, 500);
+
+            //this.texture = new AnimatedTexture(texture, 1, 2, Palette.tileSize, new Point(0, 0), AnimatedTexture.LoopType.Horizontal, 500);
+            //                     AnimatedTexture(Texture2D texture, int rows, int cols, Point frameSize, Point startFrame, LoopType loopType, float frameRate)
+            this.texture = new AnimatedTexture(new SpriteSheet(texture, new Point(1, 2), Palette.tileSize), 500);
+
             this.moveArrowTexture = moveArrowTexture;
 
             hoveredUnit = Game1.GetUnit(startingPosition);

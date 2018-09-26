@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/Textures/TilePalettes/FIEG_Palette1.png</SourceFile>
+  <SourceFile>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/TilePalettes/FIEG_Palette1.png</SourceFile>
   <SourceTime>2018-02-16T00:06:46.1081533-05:00</SourceTime>
-  <DestFile>D:/Projects/Fire Emblem I Guess Redu/FireEmblemIGuess2/FEIG/Content/bin/Windows/Textures/TilePalettes/FIEG_Palette1.xnb</DestFile>
-  <DestTime>2018-09-21T19:36:33.02871-04:00</DestTime>
+  <DestFile>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/bin/Windows/Textures/TilePalettes/FIEG_Palette1.xnb</DestFile>
+  <DestTime>2018-09-26T03:23:42.9619361-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2016-03-30T02:36:08-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

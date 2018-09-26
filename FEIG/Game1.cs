@@ -114,8 +114,8 @@ namespace FEIG
             moveArrowTexture = Content.Load<Texture2D>("Textures/MoveArrow");
             pauseMenuTexture = Content.Load<Texture2D>("Textures/FEIG Menu");
 
-            moveTileAnimated = new AnimatedTexture(moveTileTexture, 3, 16, new Point(64, 64), new Point(0, 0), AnimatedTexture.LoopType.Horizontal, 100);
-            attackTileAnimated = new AnimatedTexture(moveTileTexture, 3, 16, new Point(64, 64), new Point(0, 1), AnimatedTexture.LoopType.Horizontal, 100);
+            moveTileAnimated = new AnimatedTexture(new SpriteSheet(moveTileTexture, new Point(3, 16), new Point(64)), new Point(0, 0), AnimatedTexture.LoopType.Horizontal, 100);
+            attackTileAnimated = new AnimatedTexture(new SpriteSheet(moveTileTexture, new Point(3, 16), new Point(64)), new Point(0, 1), AnimatedTexture.LoopType.Horizontal, 100);
         }
 
         protected void LoadSounds()
