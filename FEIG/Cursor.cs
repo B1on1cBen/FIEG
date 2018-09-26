@@ -127,44 +127,10 @@ namespace FEIG
                     // Note: it is possible to press a key and hold a key at the same time
                     // with this setup. This is intentional. It doesn't feel right otherwise.
 
-                    // PRESSING KEY
                     if (key.Key.IsPressed())
                         key.Value.action();
 
-                    // HOLDING KEY
-                    if (key.Value.useTurbo && key.Key.IsHeld())
-                    {
-                        // Reset timers if new key is held
-                        if (key.Key.lastHoldWasKey)
-                        {
-                            if (prevHeldKey != heldKey)
-                            {
-                                holdTimer = holdDelay;
-                                turboTimer = turboDelay;
-                            }
-                        }
-                        else
-                        {
-                            if (prevheldButton != heldButton)
-                            {
-                                holdTimer = holdDelay;
-                                turboTimer = turboDelay;
-                            }
-                        }
-
-                        if (holdTimer <= 0)
-                        {
-                            if (turboTimer <= 0)
-                            {
-                                key.Value.action();
-                                turboTimer = turboDelay;
-                            }
-                            else
-                                turboTimer -= gameTime.ElapsedGameTime.Milliseconds;
-                        }
-                        else
-                            holdTimer -= gameTime.ElapsedGameTime.Milliseconds;
-                    }
+                    UpdateHoldingKey(key, gameTime);
                 }
 
                 prevKeyboardState = Keyboard.GetState();
@@ -174,6 +140,43 @@ namespace FEIG
                 heldKey = Keys.None;
                 heldButton = Buttons.BigButton;
             }
+        }
+
+        void UpdateHoldingKey(KeyValuePair<CursorInput, CursorAction> key, GameTime gameTime)
+        {
+            if (!key.Value.useTurbo || key.Key.IsHeld())
+                return;
+
+            // Reset timers if new key is held
+            if (key.Key.lastHoldWasKey)
+            {
+                if (prevHeldKey != heldKey)
+                {
+                    holdTimer = holdDelay;
+                    turboTimer = turboDelay;
+                }
+            }
+            else
+            {
+                if (prevheldButton != heldButton)
+                {
+                    holdTimer = holdDelay;
+                    turboTimer = turboDelay;
+                }
+            }
+
+            if (holdTimer <= 0)
+            {
+                if (turboTimer <= 0)
+                {
+                    key.Value.action();
+                    turboTimer = turboDelay;
+                }
+                else
+                    turboTimer -= gameTime.ElapsedGameTime.Milliseconds;
+            }
+            else
+                holdTimer -= gameTime.ElapsedGameTime.Milliseconds;
         }
 
         public void Draw(SpriteBatch spriteBatch)
