@@ -93,7 +93,7 @@ namespace FEIG
             currentContext = mapContext;
             mapCursorMode = MapCursorMode.MoveCursor;
 
-            this.texture = new AnimatedTexture(new SpriteSheet(texture, new Point(1, 2), Palette.tileSize), 500);
+            this.texture = new AnimatedTexture(new SpriteSheet(texture, new Point(1, 2), Level.tileSize), 500);
             this.moveArrowTexture = moveArrowTexture;
             Cursor.actionBar = actionBar;
             Cursor.pauseMenu = pauseMenu;
@@ -181,7 +181,7 @@ namespace FEIG
         {
             if (currentContext == mapContext)
             {
-                Vector2 drawPos = new Vector2(position.X * Palette.tileSize.X, position.Y * Palette.tileSize.Y + HUD.offset);
+                Vector2 drawPos = new Vector2(position.X * Level.tileSize.X, position.Y * Level.tileSize.Y + HUD.offset);
 
                 if (InMoveUnitMode)
                     spriteBatch.Draw(moveArrowTexture, drawPos, null, new Rectangle(64, 0, 64, 64), null, 0, null, null, SpriteEffects.None, 0);

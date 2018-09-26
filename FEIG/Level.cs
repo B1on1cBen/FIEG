@@ -8,10 +8,7 @@ namespace FEIG
     public class Level
     {
         // The colors associated with each type of object in the game.
-        private static readonly Color plainsColor = new Color(214, 233, 185);
-        private static readonly Color forestColor = new Color(76, 138, 103);
-        private static readonly Color waterColor = new Color(76, 76, 255);
-        private static readonly Color mountainColor = new Color(114, 109, 108);
+
 
         // These are used to tell where units are placed at the beginning of the game. 
         // These tiles are always plains.
@@ -27,24 +24,24 @@ namespace FEIG
         public static readonly int levelWidth = 6;
         public static readonly int levelHeight = 8;
 
-        public static Palette palette;
+        //public static Palette palette;
+        public static TileSet[] palette;
+        public static Point tileSize = new Point(64, 64);
 
-        public Level(Palette newPalette, Texture2D map)
+        public Level(Texture2D map, params TileSet[] palette)
         {
             redSpawns = new Point[4];
             blueSpawns = new Point[4];
 
-            palette = newPalette;
+            Level.palette = palette;
             grid = new Tile[levelWidth, levelHeight];
-            ReadMapTexture(newPalette, map);
+            ReadMapTexture(palette, map);
         }
 
-        public void ReadMapTexture(Palette palette, Texture2D map)
+        public void ReadMapTexture(TileSet[] palette, Texture2D map)
         {
             Color[] levelColors = new Color[levelWidth * levelHeight];
             map.GetData(levelColors);
-
-            int yOffset = HUD.offset;
 
             int blueSpawnsFound = 0;
             int redSpawnsFound = 0;
@@ -55,30 +52,53 @@ namespace FEIG
                 {
                     Color currentColor = levelColors[x + y * levelWidth];
 
-                    if (currentColor == blueSpawnColor)
-                    {
-                        blueSpawns[blueSpawnsFound] = new Point(x, y);
-                        grid[x, y] = new Tile(x * Palette.tileSize.X, y * Palette.tileSize.Y + yOffset, palette.plainsTileset.spriteSheet.texture, palette.GetRect(TileType.Plains), TileType.Plains);
-                        blueSpawnsFound++;
-                    }
+                    if (ReadBlueSpawns(ref blueSpawnsFound, x, y, currentColor))
+                        continue;
 
-                    if (currentColor == redSpawnColor)
-                    {
-                        redSpawns[redSpawnsFound] = new Point(x, y);
-                        grid[x, y] = new Tile(x * Palette.tileSize.X, y * Palette.tileSize.Y + yOffset, palette.plainsTileset.spriteSheet.texture, palette.GetRect(TileType.Plains), TileType.Plains);
-                        redSpawnsFound++;
-                    }
+                    if (ReadRedSpawns(ref redSpawnsFound, x, y, currentColor))
+                        continue;
 
-                    if (currentColor == plainsColor)
-                        grid[x, y] = new Tile(x * Palette.tileSize.X, y * Palette.tileSize.Y + yOffset, palette.plainsTileset.spriteSheet.texture, palette.GetRect(TileType.Plains), TileType.Plains);
-                    if (currentColor == forestColor)
-                        grid[x, y] = new Tile(x * Palette.tileSize.X, y * Palette.tileSize.Y + yOffset, palette.forestTileset.spriteSheet.texture, palette.GetRect(TileType.Forest), TileType.Forest);
-                    if (currentColor == mountainColor)
-                        grid[x, y] = new Tile(x * Palette.tileSize.X, y * Palette.tileSize.Y + yOffset, palette.mountainsTileset.spriteSheet.texture, palette.GetRect(TileType.Mountain), TileType.Mountain);
-                    if (currentColor == waterColor)
-                        grid[x, y] = new Tile(x * Palette.tileSize.X, y * Palette.tileSize.Y + yOffset, palette.waterTileset.spriteSheet.texture, palette.GetRect(TileType.Water), TileType.Water);
+                    ReadMapTile(x, y, currentColor);
                 }
             }
+        }
+
+        bool ReadBlueSpawns(ref int blueSpawnsFound, int x, int y, Color currentColor)
+        {
+            if (currentColor == blueSpawnColor)
+            {
+                blueSpawns[blueSpawnsFound] = new Point(x, y);
+                grid[x, y] = palette[0].GetTile(x * tileSize.X, y * tileSize.Y + HUD.offset);
+                blueSpawnsFound++;
+                return true;
+            }
+            return false;
+        }
+
+        bool ReadRedSpawns(ref int redSpawnsFound, int x, int y, Color currentColor)
+        {
+            if (currentColor == redSpawnColor)
+            {
+                redSpawns[redSpawnsFound] = new Point(x, y);
+                grid[x, y] = palette[0].GetTile(x * tileSize.X, y * tileSize.Y + HUD.offset);
+                redSpawnsFound++;
+                return true;
+            }
+            return false;
+        }
+
+        void ReadMapTile(int x, int y, Color currentColor)
+        {
+            for (int i = 0; i < palette.Length; i++)
+            {
+                if (currentColor == palette[i].mapColor)
+                {
+                    grid[x, y] = palette[i].GetTile(x * tileSize.X, y * tileSize.Y + HUD.offset);
+                    return;
+                }
+            }
+
+            grid[x, y] = palette[0].GetTile(x * tileSize.X, y * tileSize.Y + HUD.offset);
         }
 
         public void Draw(SpriteBatch spriteBatch)

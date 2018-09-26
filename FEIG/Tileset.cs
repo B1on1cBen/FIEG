@@ -1,19 +1,38 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace FEIG
 {
-    public class Tileset
+    public class TileSet
     {
+        public Color mapColor;
+        public TileType tileType;
         public SpriteSheet spriteSheet;
+        protected static Random rand;
 
-        public Tileset() { }
+        protected TileSet() { }
 
-        public Tileset(SpriteSheet spriteSheet)
+        public TileSet(Color mapColor, TileType tileType, SpriteSheet spriteSheet)
         {
+            if (rand == null)
+                rand = new Random();
+
+            this.mapColor = mapColor;
+            this.tileType = tileType;
             this.spriteSheet = spriteSheet;
         }
 
-        public Rectangle[] GetRects()
+        public Tile GetTile(int x, int y)
+        {
+            return new Tile(x, y, spriteSheet.texture, GetRandomRect(), tileType);
+        }
+
+        protected Rectangle GetRandomRect()
+        {
+            return GetRects()[rand.Next(0, spriteSheet.Count - 1)];
+        }
+
+        protected Rectangle[] GetRects()
         {
             Rectangle[] rectangles = new Rectangle[spriteSheet.sheetDimensions.X * spriteSheet.sheetDimensions.Y];
             for (int i = 0; i < rectangles.Length; i++)
@@ -29,12 +48,17 @@ namespace FEIG
         }
     }
 
-    public class AnimatedTileSet : Tileset
+    public class AnimatedTileSet : TileSet
     {
         public AnimatedTexture animatedTexture;
 
-        public AnimatedTileSet(AnimatedTexture animatedTexture)
+        public AnimatedTileSet(Color mapColor, TileType tileType, AnimatedTexture animatedTexture)
         {
+            if (rand == null)
+                rand = new Random();
+
+            this.mapColor = mapColor;
+            this.tileType = tileType;
             this.animatedTexture = animatedTexture;
             spriteSheet = animatedTexture.spriteSheet;
         }

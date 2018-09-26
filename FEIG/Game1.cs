@@ -46,7 +46,6 @@ namespace FEIG
         private int pauseTimer;
         public static AnimatedTexture moveTileAnimated;
         public static AnimatedTexture attackTileAnimated;
-        AnimatedTexture waterTileAnimated;
 
         public enum GameStates
         {
@@ -62,7 +61,6 @@ namespace FEIG
 
         public static GameStates gameState = GameStates.TitleScreen;
 
-        Palette palette;
         Level level;
         public static Cursor cursor;
         HUD hud;
@@ -260,16 +258,13 @@ namespace FEIG
 
         protected void InitializeLevel()
         {
-            waterTileAnimated = new AnimatedTexture(new SpriteSheet(waterTexture, new Point(2, 2), new Point(64)), 100);
-
-            palette = new Palette(
-                new Tileset(new SpriteSheet(plainsTexture, new Point(1, 1), new Point(64))),
-                new Tileset(new SpriteSheet(forestTexture, new Point(3, 1), new Point(64))),
-                new Tileset(new SpriteSheet(mountainsTexture, new Point(3, 1), new Point(64))),
-                new AnimatedTileSet(waterTileAnimated)
+            level = new Level(
+                mapTexture,
+                new TileSet(new Color(214, 233, 185), TileType.Plains, new SpriteSheet(plainsTexture, new Point(1, 1), new Point(64))),
+                new TileSet(new Color(76, 138, 103), TileType.Forest, new SpriteSheet(forestTexture, new Point(3, 1), new Point(64))),
+                new TileSet(new Color(114, 109, 108), TileType.Mountain, new SpriteSheet(mountainsTexture, new Point(3, 1), new Point(64))),
+                new AnimatedTileSet(new Color(76, 76, 255), TileType.Water, new AnimatedTexture(new SpriteSheet(waterTexture, new Point(2, 2), new Point(64)), 100))
             );
-
-            level = new Level(palette, mapTexture);
         }
 
         protected void InitializeMenus()
@@ -282,8 +277,8 @@ namespace FEIG
 
         protected void SetupWindow()
         {
-            graphics.PreferredBackBufferWidth = Level.levelWidth * Palette.tileSize.X;
-            graphics.PreferredBackBufferHeight = Level.levelHeight * Palette.tileSize.Y + HUD.offset + ActionBar.offset;
+            graphics.PreferredBackBufferWidth = Level.levelWidth * Level.tileSize.X;
+            graphics.PreferredBackBufferHeight = Level.levelHeight * Level.tileSize.Y + HUD.offset + ActionBar.offset;
             graphics.ApplyChanges();
 
             windowSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -479,14 +474,14 @@ namespace FEIG
             foreach (Point point in Cursor.validMoveTiles)
             {
                 if (GetUnit(point) == null)
-                    spriteBatch.Draw(moveTileAnimated.GetTexture(), new Vector2(point.X * Palette.tileSize.X, point.Y * Palette.tileSize.Y + HUD.offset), null, moveTileAnimated.GetFrameRect());
+                    spriteBatch.Draw(moveTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, moveTileAnimated.GetFrameRect());
             }
         }
 
         protected void DrawValidAttackTiles()
         {
             foreach (Point point in Cursor.selectedUnit.validAttackPoints)
-                spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Palette.tileSize.X, point.Y * Palette.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect());
+                spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect());
         }
 
         protected void DrawDangerZone()
@@ -496,7 +491,7 @@ namespace FEIG
                 if (unit.team == Team.Red && unit.selected && unit.alive)
                 {
                     foreach (Point point in unit.validAttackPoints)
-                        spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Palette.tileSize.X, point.Y * Palette.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect());
+                        spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect());
                 }
             }
         }
