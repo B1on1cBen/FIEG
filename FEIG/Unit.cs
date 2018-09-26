@@ -1,11 +1,14 @@
 ﻿// Written by Ben Gordon and Shawn Murdoch
 
+using FEIG.Graphics;
+using FEIG.Map;
+using FEIG.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-namespace FEIG
+namespace FEIG.Units
 {
     public enum Team
     {
@@ -28,62 +31,11 @@ namespace FEIG
         Disadvantage = -1
     }
 
-    public struct Stats
-    {
-        private int[] stats;
-
-        public Stats(int hp, int atk, int spd, int def, int res)
-        {
-            stats = new int[5] {
-                hp,
-                atk,
-                spd,
-                def,
-                res
-            };
-        }
-
-        public int HP
-        {
-            get { return stats[0]; }
-        }
-
-        public int ATK
-        {
-            get { return stats[1]; }
-        }
-
-        public int SPD
-        {
-            get { return stats[2]; }
-        }
-
-        public int DEF
-        {
-            get { return stats[3]; }
-        }
-
-        public int RES
-        {
-            get { return stats[4]; }
-        }
-
-        // Get stats by index
-        public int this[int index]
-        {
-            get
-            {
-                return stats[index];
-            }
-        }
-    }
-
     public class Unit
     {
         // Tells unit if it can pass Plains, Forest, Mountain, or Water (also including white and black spawns for error cases)
         // Parallel with MoveType enum
-        static readonly bool[][] passableTerrain =
-        {
+        static readonly bool[][] passableTerrain = {
             // Infantry - Can't pass thru mountains or oceans
             new bool[] {true, true, false, false, true, true},
 
@@ -97,17 +49,12 @@ namespace FEIG
             new bool[] {true, false, false, false, true, true }
         };
 
-        public static readonly int[] moveRanges =
-        {
-            2,
-            1,
-            2,
-            3
+        public static readonly int[] moveRanges = {
+            2, 1, 2, 3 // Infantry, Armored, Flier, Calvalry
         };
 
         // Contains all of the values for modifying damage based on type matchups 
-        private static readonly Dictionary<int, float> damageModifiers = new Dictionary<int, float>()
-        {
+        private static readonly Dictionary<int, float> damageModifiers = new Dictionary<int, float>() {
             // {Type matchup index, damage multiplier}
             { 0,   1},  // Neutral (100%)
             { 1, 1.2f}, // Advantage (120%)
@@ -341,6 +288,8 @@ namespace FEIG
         {
             List<Point> points = new List<Point>();
 
+            PathFinder pathFinder = new PathFinder();
+
             // Add in all valid move tiles
             for (int y = 0; y < Level.grid.GetLength(1); y++)
             {
@@ -348,7 +297,7 @@ namespace FEIG
                 {
                     Point movePoint = new Point(x, y);
 
-                    if (ValidPath(movePoint))
+                    if (pathFinder.ValidPath(this, position, movePoint))
                     {
                         points.Add(movePoint);
                         validMovePoints.Add(movePoint);
@@ -471,113 +420,6 @@ namespace FEIG
             }
 
             return false;
-        }
-
-        public bool ValidPath(Point goal)
-        {
-            return ValidPath(position, goal);
-        }
-
-        public bool ValidPath(Point start, Point goal)
-        {
-            // Handle unreachable goals
-            if (start == goal)
-                return true;
-
-            if (!CanMoveTo(goal))
-                return false;
-
-            Point currentPoint = start;
-
-            if (ValidAlongX(start, goal))
-            {
-                currentPoint.X = goal.X;
-
-                if (ValidAlongY(currentPoint, goal))
-                    return true;
-                else
-                    return false;
-            }
-            else
-            {
-                if (ValidAlongY(start, goal))
-                {
-                    currentPoint.Y = goal.Y;
-
-                    if (ValidAlongX(currentPoint, goal))
-                        return true;
-                    else
-                        return false;
-                }
-            }
-
-            return false;
-        }
-
-        private bool ValidAlongX(Point A, Point B)
-        {
-            if (A.X == B.X)
-                return true;
-
-            Point dif = B - A;
-            Point current = A;
-            Point nextPoint = current;
-            int distanceMod = 0;
-
-            nextPoint.X += Math.Sign(dif.X);
-            TileType tile = Level.GetTile(nextPoint).type;
-
-            if (!CanPass(tile))
-                return false;
-
-            // Can't pass onto next point if the current point is a forest and we are infantry (infantry get slowed down by forests.)
-            if (moveType == MoveType.Infantry && tile == TileType.Forest)
-                distanceMod--;
-
-            if (DistanceTo(nextPoint) > moveRanges[(int)moveType] + distanceMod)
-                return false;
-
-            // Cannot pass through enemies
-            Unit unit = Game1.GetUnit(nextPoint);
-            if (unit != null && unit.team != team)
-                return false;
-
-            current = nextPoint;
-
-            return ValidAlongX(current, B);
-        }
-
-        private bool ValidAlongY(Point A, Point B)
-        {
-            if (A.Y == B.Y)
-                return true;
-
-            Point dif = B - A;
-            Point current = A;
-            Point nextPoint = current;
-            int distanceMod = 0;
-
-            nextPoint.Y += Math.Sign(dif.Y);
-            TileType tile = Level.GetTile(nextPoint).type;
-
-            if (!CanPass(tile))
-                return false;
-
-            if (moveType == MoveType.Infantry && tile == TileType.Forest)
-                distanceMod--;
-
-            // Can't pass onto next point if the current point is a forest and we are infantry (infantry get slowed down by forests.)
-            if (DistanceTo(nextPoint) > moveRanges[(int)moveType] + distanceMod)
-                return false;
-
-            // Cannot pass through enemies
-            Unit unit = Game1.GetUnit(nextPoint);
-            if (unit != null && unit.team != team)
-                return false;
-
-            current = nextPoint;
-
-            return ValidAlongY(current, B);
         }
 
         private bool CanCounterMe(Unit unit)

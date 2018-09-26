@@ -1,6 +1,9 @@
 ﻿// Written by Ben Gordon and Shawn Murdoch
 
-using FEIG.CursorHelper;
+using FEIG.Graphics;
+using FEIG.Map;
+using FEIG.UI;
+using FEIG.Units;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;

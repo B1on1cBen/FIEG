@@ -3,7 +3,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FEIG
+namespace FEIG.Map
 {
     public enum TileType
     {

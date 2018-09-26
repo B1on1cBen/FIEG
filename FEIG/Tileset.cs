@@ -1,7 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Written By Ben Gordon
+
+using FEIG.Graphics;
+using Microsoft.Xna.Framework;
 using System;
 
-namespace FEIG
+namespace FEIG.Map
 {
     public class TileSet
     {

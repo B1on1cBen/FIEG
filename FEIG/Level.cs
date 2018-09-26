@@ -1,15 +1,13 @@
 // Written by Ben Gordon
 
+using FEIG.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FEIG
+namespace FEIG.Map
 {
     public class Level
     {
-        // The colors associated with each type of object in the game.
-
-
         // These are used to tell where units are placed at the beginning of the game. 
         // These tiles are always plains.
         private static readonly Color blueSpawnColor = new Color(0, 0, 0);

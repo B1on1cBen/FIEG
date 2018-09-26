@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FEIG
+namespace FEIG.UI
 {
-
     public class ActionBar
     {
         public enum BarButtons

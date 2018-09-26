@@ -1,13 +1,15 @@
 ﻿// Written by Ben Gordon and Shawn Murdoch
 
-using FEIG.CursorHelper;
+using FEIG.Graphics;
+using FEIG.Map;
+using FEIG.Units;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using static FEIG.CursorHelper.CursorContext;
+using static FEIG.UI.CursorContext;
 
-namespace FEIG
+namespace FEIG.UI
 {
     public class Cursor
     {
@@ -219,12 +221,13 @@ namespace FEIG
         void RegisterValidMoveTiles()
         {
             validMoveTiles.Clear();
+            PathFinder pathFinder = new PathFinder();
 
             for (int y = 0; y < Level.grid.GetLength(1); y++)
             {
                 for (int x = 0; x < Level.grid.GetLength(0); x++)
                 {
-                    if (selectedUnit.ValidPath(selectionPreviousPos, new Point(x, y)))
+                    if (pathFinder.ValidPath(selectedUnit, selectionPreviousPos, new Point(x, y)))
                         validMoveTiles.Add(new Point(x, y));
                 }
             }

@@ -1,10 +1,11 @@
 ﻿//--Shawn Murdoch--//
 //--I used the ActionBar script that Ben wrote and worked it so that it would work for the pause menu--//
+using FEIG.Units;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
-namespace FEIG
+namespace FEIG.UI
 {
     public class PauseMenu
     {

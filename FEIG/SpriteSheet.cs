@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Written By Ben Gordon
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FEIG
+namespace FEIG.Graphics
 {
     public class SpriteSheet
     {

@@ -1,9 +1,11 @@
 ﻿// Written by Ben Gordon
 
+using FEIG.Map;
+using FEIG.Units;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FEIG
+namespace FEIG.UI
 {
     public class HUD
     {

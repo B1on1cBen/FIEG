@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FEIG.CursorHelper
+namespace FEIG.UI
 {
     // Tells the cursor what it's function is when keys are pressed, 
     // within a certain context. I.E., Map context and action bar context
