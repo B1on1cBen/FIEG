@@ -44,7 +44,6 @@ namespace FEIG
         public static AnimatedTexture moveTileAnimated;
         public static AnimatedTexture attackTileAnimated;
 
-        //--Game States--//
         public enum GameStates
         {
             TitleScreen,
@@ -57,7 +56,6 @@ namespace FEIG
             Quit
         };
 
-        //--Title screen is the default game state--//
         public static GameStates gameState = GameStates.TitleScreen;
 
         Palette palette;
@@ -74,8 +72,6 @@ namespace FEIG
         public static SpriteFont endFont;
 
         public static List<Unit> units = new List<Unit>();
-        public static List<int> unitDrawOrder = new List<int>();
-
         public static bool globalDangerZoneState = false;
         public static bool gameDone = false;
 
@@ -103,12 +99,8 @@ namespace FEIG
             base.Initialize();
         }
 
-        protected override void LoadContent()
+        protected void LoadTextures()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // Loading textures
             mapTexture = Content.Load<Texture2D>("Textures/Maps/Map1");
             paletteTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_Palette1");
             cursorTexture = Content.Load<Texture2D>("Textures/Cursor");
@@ -124,8 +116,10 @@ namespace FEIG
 
             moveTileAnimated = new AnimatedTexture(moveTileTexture, 3, 16, new Point(64, 64), new Point(0, 0), AnimatedTexture.LoopType.Horizontal, 100);
             attackTileAnimated = new AnimatedTexture(moveTileTexture, 3, 16, new Point(64, 64), new Point(0, 1), AnimatedTexture.LoopType.Horizontal, 100);
+        }
 
-            // Loading Sound Effects
+        protected void LoadSounds()
+        {
             deniedSound = Content.Load<SoundEffect>("SoundEffects/denied");
             confirmSound = Content.Load<SoundEffect>("SoundEffects/confirm");
             backSound = Content.Load<SoundEffect>("SoundEffects/back");
@@ -135,148 +129,145 @@ namespace FEIG
             victorySound = Content.Load<SoundEffect>("SoundEffects/victory");
             defeatSound = Content.Load<SoundEffect>("SoundEffects/defeat");
             menuSound = Content.Load<SoundEffect>("SoundEffects/menu");
+        }
 
-            // Loading Music
+        protected void LoadMusic()
+        {
             music = Content.Load<Song>("Music/Winds Across the Plains");
+        }
 
-            // Loading fonts
+        protected void LoadFonts()
+        {
             font = Content.Load<SpriteFont>("Fonts/Munro");
             hpFont = Content.Load<SpriteFont>("Fonts/Lunchtime");
             promptFont = Content.Load<SpriteFont>("Fonts/MunroSmaller");
             endFont = Content.Load<SpriteFont>("Fonts/ComicSans");
+        }
 
-            // Initializing objects
+        protected void InitializeUnits()
+        {
+            #region Red Team
+            // WENDY
+            units.Add(new Unit(0)
+                .SetName("Wendy")
+                .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(0, 0), Unit.portraitSize)))
+                .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(new Point(0, 0), new Point(Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2))))
+                .SetTeam(Team.Red)
+                .SetWeapon(Weapon.Lance)
+                .SetStats(new Stats(hp: 49, atk: 30, spd: 21, def: 41, res: 28))
+                .SetMoveType(MoveType.Armored)
+            );
+
+            // TIKI
+            units.Add(new Unit(1)
+                .SetName("Tiki")
+                .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(98, 0), Unit.portraitSize)))
+                .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(64, 0, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
+                .SetTeam(Team.Red)
+                .SetWeapon(Weapon.RedDragon)
+                .SetStats(new Stats(hp: 40, atk: 38, spd: 20, def: 35, res: 24))
+                .SetMoveType(MoveType.Infantry)
+            );
+
+            // TITANIA
+            units.Add(new Unit(2)
+                .SetName("Titania")
+                .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(196, 0), Unit.portraitSize)))
+                .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(128, 0, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
+                .SetTeam(Team.Red)
+                .SetWeapon(Weapon.Axe)
+                .SetStats(new Stats(hp: 37, atk: 28, spd: 37, def: 22, res: 30))
+                .SetMoveType(MoveType.Cavalry)
+            );
+
+            // MAE
+            units.Add(new Unit(3)
+                .SetName("Mae")
+                .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(294, 0), Unit.portraitSize)))
+                .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(192, 0, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
+                .SetTeam(Team.Red)
+                .SetWeapon(Weapon.BlueTome)
+                .SetStats(new Stats(hp: 35, atk: 39, spd: 31, def: 12, res: 30))
+                .SetMoveType(MoveType.Infantry)
+            );
+            #endregion Red Team
+
+            #region Blue Team
+            // FELICIA
+            units.Add(new Unit(4)
+                .SetName("Felicia")
+                .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(0, 98), Unit.portraitSize)))
+                .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(0, 128, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
+                .SetTeam(Team.Blue)
+                .SetWeapon(new Weapon("Plate", 14, 2, WeaponColor.Colorless, DamageType.Def, new Point(1, 4)))
+                .SetStats(new Stats(hp: 34, atk: 26, spd: 37, def: 15, res: 35))
+                .SetMoveType(MoveType.Infantry)
+            );
+
+            // HECTOR
+            units.Add(new Unit(5)
+                .SetName("Hector")
+                .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(294, 98), Unit.portraitSize)))
+                .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(192, 128, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
+                .SetTeam(Team.Blue)
+                .SetWeapon(new Weapon("Armads", 16, 1, WeaponColor.Green, DamageType.Def, new Point(0, 2)))
+                .SetStats(new Stats(hp: 52, atk: 39, spd: 24, def: 34, res: 19))
+                .SetMoveType(MoveType.Armored)
+            );
+
+            // MARTH
+            units.Add(new Unit(6)
+                .SetName("Marth")
+                .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(98, 98), Unit.portraitSize)))
+                .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(64, 128, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
+                .SetTeam(Team.Blue)
+                .SetWeapon(new Weapon("Falchion", 16, 1, WeaponColor.Red, DamageType.Def, new Point(0, 1)))
+                .SetStats(new Stats(hp: 41, atk: 31, spd: 37, def: 29, res: 20))
+                .SetMoveType(MoveType.Infantry)
+            );
+
+            // TANA
+            units.Add(new Unit(7)
+                .SetName("Tana")
+                .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(196, 98), Unit.portraitSize)))
+                .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(128, 128, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
+                .SetTeam(Team.Blue)
+                .SetWeapon(Weapon.Lance)
+                .SetStats(new Stats(hp: 36, atk: 37, spd: 36, def: 25, res: 22))
+                .SetMoveType(MoveType.Flier)
+            );
+            #endregion Blue Team
+        }
+
+        protected void InitializeObjects()
+        {
             palette = new Palette(paletteTexture, new Point(4, 4), 0, 1, 1, 3, 2, 3, 3, 4);
             level = new Level(palette, mapTexture);
             hud = new HUD(hudTexture, iconTexture, font, hpFont);
             actionBar = new ActionBar(actionBarTexture, promptFont);
             pauseMenu = new PauseMenu(pauseMenuTexture);
+        }
 
-            // Setting up the window for the size of the level
+        protected void SetupWindow()
+        {
             graphics.PreferredBackBufferWidth = Level.levelWidth * Palette.tileSize.X;
             graphics.PreferredBackBufferHeight = Level.levelHeight * Palette.tileSize.Y + HUD.offset + ActionBar.offset;
             graphics.ApplyChanges();
 
             windowSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+        }
 
-            // Initializing Units
+        protected override void LoadContent()
+        {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            #region Red Team
-            // Wendy
-            units.Add(new Unit(
-                "Wendy",
-                new Point(0, 0),
-                portraitTexture,
-                new Rectangle(new Point(0, 0), Unit.portraitSize),
-                unitMapTexture,
-                new Rectangle(new Point(0, 0), new Point(Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)),
-                Team.Red,
-                Weapon.Lance,
-                new Stats(49, 30, 21, 41, 28),
-                MoveType.Armored));
-            unitDrawOrder.Add(0);
-
-            // Tiki
-            units.Add(new Unit(
-                "Tiki",
-                new Point(0, 1),
-                portraitTexture,
-                new Rectangle(new Point(98, 0), Unit.portraitSize),
-                unitMapTexture,
-                new Rectangle(new Point(64, 0), new Point(Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)),
-                Team.Red,
-                Weapon.RedDragon,
-                new Stats(40, 38, 20, 35, 24),
-                MoveType.Infantry));
-            unitDrawOrder.Add(1);
-
-            // Titania
-            units.Add(new Unit(
-                "Titania",
-                new Point(0, 4),
-                portraitTexture,
-                new Rectangle(new Point(196, 0), Unit.portraitSize),
-                unitMapTexture,
-                new Rectangle(new Point(128, 0), new Point(Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)),
-                Team.Red,
-                Weapon.Axe,
-                new Stats(37, 28, 37, 22, 30),
-                MoveType.Cavalry));
-            unitDrawOrder.Add(2);
-
-            // Mae
-            units.Add(new Unit(
-                "Mae",
-                new Point(0, 3),
-                portraitTexture,
-                new Rectangle(new Point(294, 0), Unit.portraitSize),
-                unitMapTexture,
-                new Rectangle(new Point(192, 0), new Point(Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)),
-                Team.Red,
-                Weapon.BlueTome,
-                new Stats(35, 39, 31, 12, 30),
-                MoveType.Infantry));
-            unitDrawOrder.Add(3);
-            #endregion Red Team
-
-            #region Blue Team
-            // Felicia
-            units.Add(new Unit(
-                "Felicia",
-                new Point(2, 4),
-                portraitTexture,
-                new Rectangle(new Point(0, 98), Unit.portraitSize),
-                unitMapTexture,
-                new Rectangle(new Point(0, 128), new Point(Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)),
-                Team.Blue,
-                new Weapon("Plate", 14, 2, WeaponColor.Colorless, DamageType.Def, new Point(1, 4)),
-                new Stats(34, 26, 37, 15, 35),
-                MoveType.Infantry));
-            unitDrawOrder.Add(4);
-
-            // Hector
-            units.Add(new Unit(
-                "Hector",
-                new Point(5, 7),
-                portraitTexture,
-                new Rectangle(new Point(294, 98), Unit.portraitSize),
-                unitMapTexture,
-                new Rectangle(new Point(192, 128), new Point(Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)),
-                Team.Blue,
-                new Weapon("Armads", 16, 1, WeaponColor.Green, DamageType.Def, new Point(0, 2)),
-                new Stats(52, 39, 24, 34, 19),
-                MoveType.Armored));
-            unitDrawOrder.Add(5);
-
-            // Marth
-            units.Add(new Unit(
-                "Marth",
-                new Point(1, 7),
-                portraitTexture,
-                new Rectangle(new Point(98, 98), Unit.portraitSize),
-                unitMapTexture,
-                new Rectangle(new Point(64, 128), new Point(Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)),
-                Team.Blue,
-                new Weapon("Falchion", 16, 1, WeaponColor.Red, DamageType.Def, new Point(0, 1)),
-                new Stats(41, 31, 37, 29, 20),
-                MoveType.Infantry));
-            unitDrawOrder.Add(6);
-
-            // Tana
-            units.Add(new Unit(
-                "Tana",
-                new Point(4, 7),
-                portraitTexture,
-                new Rectangle(new Point(196, 98), Unit.portraitSize),
-                unitMapTexture,
-                new Rectangle(new Point(128, 128), new Point(Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)),
-                Team.Blue,
-                Weapon.Lance,
-                new Stats(36, 37, 36, 25, 22),
-                MoveType.Flier));
-            unitDrawOrder.Add(7);
-            #endregion Blue Team
-
+            LoadTextures();
+            LoadSounds();
+            LoadMusic();
+            LoadFonts();
+            InitializeObjects();
+            SetupWindow();
+            InitializeUnits();
             MoveUnitsToSpawns();
 
             // Initializing cursor last            
@@ -284,15 +275,87 @@ namespace FEIG
 
             // Coupling some things because I didn't organize things well enough here.
             ActionBar.cursor = cursor;
+            actionBar.SetPrompt("Z/Enter - Confirm, X/Backspace - Back,\n" +
+                                "Esc - Menu, Arrows - Navigate");
+
             Cursor.actionBar = actionBar;
             Cursor.pauseMenu = pauseMenu;
             PauseMenu.cursor = cursor;
-
-            actionBar.SetPrompt("Z/Enter - Confirm, X/Backspace - Back,\n" +
-                                "Esc - Menu, Arrows - Navigate");
         }
 
         protected override void UnloadContent() { }
+
+        protected void UpdateTitleScreen()
+        {
+            if ((GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed) || (Keyboard.GetState().IsKeyDown(Keys.Enter)))
+            {
+                MediaPlayer.IsRepeating = true;
+                MediaPlayer.Volume = 0.5f;
+                MediaPlayer.Play(music);
+                gameState = GameStates.PlayerTurn;
+                Unit.enemyAggro = false;
+            }
+        }
+
+        protected void UpdatePlayerTurn(GameTime gameTime)
+        {
+            cursor.Update(gameTime);
+            CheckForEndGame();
+        }
+
+        protected void UpdateEnemyTurn()
+        {
+            // Return to player turn;
+            EnemyPhase();
+            ReactivateUnits();
+
+            // Reselect whatever the cursor is looking at
+            Cursor.MoveOnGrid(new Point(0, 0));
+            gameState = GameStates.PlayerTurn;
+
+            CheckForEndGame();
+        }
+
+        protected void UpdateLevelComplete()
+        {
+            if (!gameDone)
+            {
+                gameDone = true;
+                MediaPlayer.Stop();
+                victorySound.Play();
+            }
+        }
+
+        protected void UpdateGameOver()
+        {
+            if (!gameDone)
+            {
+                gameDone = true;
+                MediaPlayer.Stop();
+                defeatSound.Play();
+            }
+        }
+
+        protected void UpdatePause()
+        {
+            pauseMenu.Active = true;
+            if ((Keyboard.GetState().IsKeyDown(Keys.Escape)))
+            {
+                pauseTimer++;
+                if (pauseTimer >= 10)
+                {
+                    pauseTimer = 0;
+                    pauseMenu.Active = false;
+                    gameState = GameStates.PlayerTurn;
+                }
+            }
+        }
+
+        protected void UpdateAnimatedTextures(GameTime gameTime)
+        {
+            foreach (AnimatedTexture animTexture in AnimatedTexture.AnimatedTextures)
+                animTexture.Update(gameTime);
+        }
 
         protected override void Update(GameTime gameTime)
         {
@@ -302,77 +365,32 @@ namespace FEIG
                 Exit();
             }
 
-            // Update animated textures so that they actually animate!
-            foreach (AnimatedTexture animTexture in AnimatedTexture.AnimatedTextures)
-                animTexture.Update(gameTime);
+            UpdateAnimatedTextures(gameTime);
 
             switch (gameState)
             {
                 case GameStates.TitleScreen:
-                    if ((GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed) || (Keyboard.GetState().IsKeyDown(Keys.Enter)))
-                    {
-                        MediaPlayer.IsRepeating = true;
-                        MediaPlayer.Volume = 0.5f;
-                        MediaPlayer.Play(music);
-                        gameState = GameStates.PlayerTurn;
-                        Unit.enemyAggro = false;
-                    }
+                    UpdateTitleScreen();
                     break;
 
                 case GameStates.PlayerTurn:
-
-                    cursor.Update(gameTime);
-
-                    foreach (Unit unit in units)
-                    {
-                        unit.Update(gameTime);
-                    }
-
-                    CheckForEndGame();
+                    UpdatePlayerTurn(gameTime);
                     break;
 
                 case GameStates.EnemyTurn:
-                    // Return to player turn;
-                    EnemyPhase();
-                    ReactivateUnits();
-
-                    // Reselect whatever the cursor is looking at
-                    Cursor.MoveOnGrid(new Point(0, 0));
-                    gameState = GameStates.PlayerTurn;
-
-                    CheckForEndGame();
+                    UpdateEnemyTurn();
                     break;
 
                 case GameStates.LevelComplete:
-                    if (!gameDone)
-                    {
-                        gameDone = true;
-                        MediaPlayer.Stop();
-                        victorySound.Play();
-                    }
+                    UpdateLevelComplete();
                     break;
 
                 case GameStates.GameOver:
-                    if (!gameDone)
-                    {
-                        gameDone = true;
-                        MediaPlayer.Stop();
-                        defeatSound.Play();
-                    }
+                    UpdateGameOver();
                     break;
 
                 case GameStates.Pause:
-                    pauseMenu.Active = true;
-                    if ((Keyboard.GetState().IsKeyDown(Keys.Escape)))
-                    {
-                        pauseTimer++;
-                        if (pauseTimer >= 10)
-                        {
-                            pauseTimer = 0;
-                            pauseMenu.Active = false;
-                            gameState = GameStates.PlayerTurn;
-                        }
-                    }
+                    UpdatePause();
                     break;
 
                 case GameStates.Quit:
@@ -389,7 +407,6 @@ namespace FEIG
             spriteBatch.Begin();
             if (gameState == GameStates.TitleScreen)
             {
-                //Draw title screen
                 spriteBatch.Draw(titleScreen, new Rectangle(0, 0, (int)windowSize.X, (int)windowSize.Y), Color.White);
             }
             else if (gameState == GameStates.GameOver)
@@ -404,20 +421,7 @@ namespace FEIG
             }
             else
             {
-                hud.Draw(spriteBatch); // Rendering the hud on the bottom so that units don't get cut off if they are on the top row
-                actionBar.Draw(spriteBatch);
-                level.Draw(spriteBatch);
-
-                DrawDangerZone();
-
-                if (!actionBar.Active && cursor.InMoveUnitMode)
-                    DrawValidMoveTiles();
-
-                if (!actionBar.Active && cursor.InAttackMode)
-                    DrawValidAttackTiles();
-
-                DrawUnits(spriteBatch);
-                pauseMenu.Draw(spriteBatch);
+                DrawGame();
             }
 
             if (gameState == GameStates.PlayerTurn)
@@ -428,24 +432,37 @@ namespace FEIG
             base.Draw(gameTime);
         }
 
+        protected void DrawGame()
+        {
+            hud.Draw(spriteBatch); // Rendering the hud on the bottom so that units don't get cut off if they are on the top row
+            actionBar.Draw(spriteBatch);
+            level.Draw(spriteBatch);
+
+            DrawDangerZone();
+
+            if (!actionBar.Active && cursor.InMoveUnitMode)
+                DrawValidMoveTiles();
+
+            if (!actionBar.Active && cursor.InAttackMode)
+                DrawValidAttackTiles();
+
+            DrawUnits(spriteBatch);
+            pauseMenu.Draw(spriteBatch);
+        }
+
         protected void DrawValidMoveTiles()
         {
             foreach (Point point in Cursor.validMoveTiles)
             {
                 if (GetUnit(point) == null)
-                {
                     spriteBatch.Draw(moveTileAnimated.GetTexture(), new Vector2(point.X * Palette.tileSize.X, point.Y * Palette.tileSize.Y + HUD.offset), null, moveTileAnimated.GetFrameRect());
-                }
             }
         }
 
         protected void DrawValidAttackTiles()
         {
             foreach (Point point in Cursor.selectedUnit.validAttackPoints)
-            {
                 spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Palette.tileSize.X, point.Y * Palette.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect());
-
-            }
         }
 
         protected void DrawDangerZone()
@@ -501,20 +518,29 @@ namespace FEIG
         {
             for (int i = 0; i < units.Count; i++)
             {
-                units[unitDrawOrder[i]].Draw(spriteBatch);
+                for (int j = 0; j < units.Count; j++)
+                {
+                    if (units[j].drawOrder == i)
+                        units[j].Draw(spriteBatch);
+                }
             }
         }
 
         // This prevents drawing issues when units are placed above other units
         public static void RefreshUnitDrawOrder()
         {
-            for (int i = 0; i < units.Count - 1; i++)
+            for (int i = 0; i < units.Count; i++)
             {
-                if (units[unitDrawOrder[i]].Position.Y > units[unitDrawOrder[i + 1]].Position.Y)
+                for (int j = 0; j < units.Count; j++)
                 {
-                    int temp = unitDrawOrder[i];
-                    unitDrawOrder[i] = unitDrawOrder[i + 1];
-                    unitDrawOrder[i + 1] = temp;
+                    if (i == j)
+                        continue;
+
+                    if (units[i].Position.Y > units[j].Position.Y && units[i].drawOrder < units[j].drawOrder)
+                    {
+                        units[i].drawOrder = MathHelper.Clamp(units[i].drawOrder + 1, 0, units.Count - 1);
+                        units[j].drawOrder = units[i].drawOrder - 1;
+                    }
                 }
             }
         }
@@ -544,9 +570,8 @@ namespace FEIG
         {
             foreach (Unit unit in units)
             {
-                if (unit.team == Team.Blue)
-                    if (unit.active)
-                        return;
+                if (unit.team == Team.Blue && unit.active)
+                    return;
             }
 
             Console.WriteLine("Enemy Phase");
@@ -558,12 +583,9 @@ namespace FEIG
             foreach (Unit unit in units)
             {
                 if (unit.team == Team.Red)
-                {
                     unit.AIRoutine();
-                }
             }
 
-            // Update attack tiles after the enemy moves
             UpdateDangerZone();
         }
 
@@ -571,11 +593,8 @@ namespace FEIG
         {
             foreach (Unit unit in units)
             {
-                if (unit.team == Team.Red)
-                {
-                    if (unit.alive)
-                        unit.UpdateDangerZone();
-                }
+                if (unit.team == Team.Red && unit.alive)
+                    unit.UpdateDangerZone();
             }
         }
 
@@ -589,18 +608,15 @@ namespace FEIG
                 if (!unit.alive)
                 {
                     if (unit.team == Team.Blue)
-                    {
                         blueCount++;
-                    }
                     else
-                    {
                         redCount++;
-                    }
                 }
             }
 
             if (redCount == 4)
                 gameState = GameStates.LevelComplete;
+
             if (blueCount == 4)
                 gameState = GameStates.GameOver;
         }

@@ -29,36 +29,29 @@ namespace FEIG
             // Draw the HUD with Unit display visible, if a unit is highlighted
             if (Cursor.CursorOverUnit)
             {
-                if (Cursor.hoveredUnit.team == Team.Red) x = hudBack.Width / 2;
+                if (Cursor.hoveredUnit.team == Team.Red)
+                    x = hudBack.Width / 2;
 
                 spriteBatch.Draw(hudBack, Vector2.Zero, null, new Rectangle(x, 0, hudBack.Width, 128), Vector2.Zero, 0, null, Color.White, SpriteEffects.None, 0);
 
-                // Draw unit stuff in the HUD
                 Unit unit = Cursor.hoveredUnit;
-
                 // Portrait
-                spriteBatch.Draw(unit.portrait, new Vector2(16, 15), null, unit.portaitRect, null, 0, null, null, SpriteEffects.None, 0);
-
+                spriteBatch.Draw(unit.portraitTexture.texture, new Vector2(16, 15), null, unit.portraitTexture.rect, null, 0, null, null, SpriteEffects.None, 0);
                 // Weapon Type Icon
                 spriteBatch.Draw(icons, new Vector2(18, 90), null, GetIconRect(unit.weapon.iconIndex), null, 0, null, null, SpriteEffects.None, 0);
-
                 // Move Icon
                 spriteBatch.Draw(icons, new Vector2(92, 91), null, GetIconRect((int)unit.moveType, 0), null, 0, null, null, SpriteEffects.None, 0);
-
                 // Name
                 spriteBatch.DrawString(defaultFont, unit.name, new Vector2(126, 6), Color.White);
-
                 // Stats
                 spriteBatch.DrawString(defaultFont, (unit.weapon.might + unit.stats.ATK).ToString(), new Vector2(216, 32), Color.White);
                 spriteBatch.DrawString(defaultFont, unit.stats.SPD.ToString(), new Vector2(216, 52), Color.White);
                 spriteBatch.DrawString(defaultFont, unit.stats.DEF.ToString(), new Vector2(216, 72), Color.White);
                 spriteBatch.DrawString(defaultFont, unit.stats.RES.ToString(), new Vector2(216, 92), Color.White);
-
                 // HP
                 string hpString = unit.CurrentHP.ToString() + "/" + unit.stats.HP.ToString();
                 Vector2 hpSize = hpFont.MeasureString(hpString);
                 spriteBatch.DrawString(hpFont, hpString, new Vector2(Game1.windowSize.X - hpSize.X - 11, 16), Color.White);
-
                 // Weapon
                 string weaponString = unit.weapon.name;
                 Vector2 weaponStringSize = defaultFont.MeasureString(weaponString);

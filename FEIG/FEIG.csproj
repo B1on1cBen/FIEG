@@ -58,6 +58,7 @@
     <Compile Include="PauseMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Subsprite.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="Weapon.cs" />

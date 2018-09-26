@@ -118,15 +118,13 @@ namespace FEIG
         public static readonly Point mapUnitSize = new Point(64, 64);
 
         public static bool enemyAggro = false;
-
         public static Cursor cursor; // A handy reference to the cursor
 
         // These will not change
         public string name;
-        public Texture2D portrait;
-        public Rectangle portaitRect;
-        public Texture2D mapTexture;
-        public Rectangle mapRect;
+
+        public SubTexture portraitTexture;
+        public SubTexture mapTexture;
         public Team team;
         public Weapon weapon;
         public Stats stats;
@@ -136,25 +134,65 @@ namespace FEIG
         public bool active = true;
         public bool selected = false;
         public bool alive = true;
+        public int drawOrder;
         private Point position; // This has a public accessor
         private int currentHP; // This has a public accessor
 
         public List<Point> validAttackPoints = new List<Point>();
         private List<Point> validMovePoints = new List<Point>();
 
-        public Unit(string name, Point position, Texture2D portrait, Rectangle portaitRect, Texture2D mapTexture, Rectangle mapRect, Team team, Weapon weapon, Stats stats, MoveType moveType)
+        public Unit(int drawOrder)
+        {
+            this.drawOrder = drawOrder;
+        }
+
+        public Unit SetName(string name)
         {
             this.name = name;
-            Position = position;
-            this.portrait = portrait;
-            this.portaitRect = portaitRect;
+            return this;
+        }
+
+        public Unit SetPosition(Point position)
+        {
+            this.Position = position;
+            return this;
+        }
+
+        public Unit SetPortraitSprite(SubTexture portraitTexture)
+        {
+            this.portraitTexture = portraitTexture;
+            return this;
+        }
+
+        public Unit SetMapSprite(SubTexture mapTexture)
+        {
             this.mapTexture = mapTexture;
-            this.mapRect = mapRect;
+            return this;
+        }
+
+        public Unit SetTeam(Team team)
+        {
             this.team = team;
+            return this;
+        }
+
+        public Unit SetWeapon(Weapon weapon)
+        {
             this.weapon = weapon;
+            return this;
+        }
+
+        public Unit SetStats(Stats stats)
+        {
             this.stats = stats;
             currentHP = stats.HP;
+            return this;
+        }
+
+        public Unit SetMoveType(MoveType moveType)
+        {
             this.moveType = moveType;
+            return this;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -175,13 +213,8 @@ namespace FEIG
                     color = Color.Gray;
 
                 // Draw the unit sprite
-                spriteBatch.Draw(mapTexture, new Vector2(Position.X * Palette.tileSize.X, Position.Y * Palette.tileSize.Y + HUD.offset - mapUnitSize.Y), null, mapRect, null, 0, null, color, SpriteEffects.None, 1);
+                spriteBatch.Draw(mapTexture.texture, new Vector2(Position.X * Palette.tileSize.X, Position.Y * Palette.tileSize.Y + HUD.offset - mapUnitSize.Y), null, mapTexture.rect, null, 0, null, color, SpriteEffects.None, 1);
             }
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            // Nothing here for now, but this is referenced in Game1
         }
 
         public void Attack(Unit target)
