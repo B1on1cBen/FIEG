@@ -5,7 +5,6 @@
   <Config />
   <SourceFiles>
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/Maps/Map1.png</File>
-    <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/TilePalettes/FIEG_Palette1.png</File>
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/Cursor.png</File>
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Fonts/Munro.spritefont</File>
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Fonts/Lunchtime.spritefont</File>
@@ -31,5 +30,9 @@
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/SoundEffects/menu.wav</File>
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Music/Winds Across the Plains.ogg</File>
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/FEIG_Logo.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/TilePalettes/FIEG_ForestTiles.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/TilePalettes/FIEG_MountainTiles.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/TilePalettes/FIEG_PlainsTiles.png</File>
+    <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/TilePalettes/FIEG_WaterTiles.png</File>
   </SourceFiles>
 </SourceFileCollection>

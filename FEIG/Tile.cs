@@ -31,7 +31,7 @@ namespace FEIG
         };
 
         public Vector2 position;
-        public Texture texture;
+        public Texture2D texture;
         public Rectangle rect;
         public TileType type;
 
@@ -48,7 +48,7 @@ namespace FEIG
             position = new Vector2(x, y);
             this.texture = texture;
             this.rect = rect;
-            this.type = type;       
+            this.type = type;
         }
     }
 }

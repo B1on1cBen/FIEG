@@ -23,7 +23,7 @@ namespace FEIG
         private float frameTimer;
         private Rectangle frameRect;
 
-        SpriteSheet spriteSheet;
+        public SpriteSheet spriteSheet { get; private set; }
 
         public AnimatedTexture(SpriteSheet spriteSheet, float frameRate)
         {

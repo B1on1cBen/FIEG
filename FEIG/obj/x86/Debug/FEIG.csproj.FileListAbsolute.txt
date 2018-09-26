@@ -107,7 +107,6 @@ D:\Projects\Fire Emblem I Guess Redu\FireEmblemIGuess2\FEIG\obj\x86\Debug\FEIG.e
 D:\Projects\Fire Emblem I Guess Redu\FireEmblemIGuess2\FEIG\obj\x86\Debug\FEIG.pdb
 D:\Projects\Fire Emblem I Guess Redu\FireEmblemIGuess2\FEIG\obj\x86\Debug\FEIG.csprojAssemblyReference.cache
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\Units\Units.xnb
-D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_Palette1.xnb
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\Portraits\Portraits.xnb
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\Maps\Map1.xnb
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\ActionBar.xnb
@@ -161,3 +160,7 @@ D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\obj\x86\Debug\FEIG.csproj.CoreCom
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\obj\x86\Debug\FEIG.csproj.CopyComplete
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\obj\x86\Debug\FEIG.exe
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\obj\x86\Debug\FEIG.pdb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_ForestTiles.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_MountainTiles.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_PlainsTiles.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_WaterTiles.xnb

@@ -17,7 +17,10 @@ namespace FEIG
         SpriteBatch spriteBatch;
 
         Texture2D mapTexture;
-        Texture2D paletteTexture;
+        Texture2D plainsTexture;
+        Texture2D forestTexture;
+        Texture2D mountainsTexture;
+        Texture2D waterTexture;
         Texture2D cursorTexture;
         Texture2D hudTexture;
         Texture2D portraitTexture;
@@ -43,6 +46,7 @@ namespace FEIG
         private int pauseTimer;
         public static AnimatedTexture moveTileAnimated;
         public static AnimatedTexture attackTileAnimated;
+        AnimatedTexture waterTileAnimated;
 
         public enum GameStates
         {
@@ -102,7 +106,8 @@ namespace FEIG
         protected void LoadTextures()
         {
             mapTexture = Content.Load<Texture2D>("Textures/Maps/Map1");
-            paletteTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_Palette1");
+
+            LoadTileTextures();
             cursorTexture = Content.Load<Texture2D>("Textures/Cursor");
             hudTexture = Content.Load<Texture2D>("Textures/FEIG HUD 2");
             portraitTexture = Content.Load<Texture2D>("Textures/Portraits/Portraits");
@@ -116,6 +121,14 @@ namespace FEIG
 
             moveTileAnimated = new AnimatedTexture(new SpriteSheet(moveTileTexture, new Point(3, 16), new Point(64)), new Point(0, 0), AnimatedTexture.LoopType.Horizontal, 100);
             attackTileAnimated = new AnimatedTexture(new SpriteSheet(moveTileTexture, new Point(3, 16), new Point(64)), new Point(0, 1), AnimatedTexture.LoopType.Horizontal, 100);
+        }
+
+        protected void LoadTileTextures()
+        {
+            plainsTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_PlainsTiles");
+            forestTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_ForestTiles");
+            mountainsTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_MountainTiles");
+            waterTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_WaterTiles");
         }
 
         protected void LoadSounds()
@@ -241,7 +254,15 @@ namespace FEIG
 
         protected void InitializeObjects()
         {
-            palette = new Palette(paletteTexture, new Point(4, 4), new PaletteRow(0, 1), new PaletteRow(1, 3), new PaletteRow(2, 3), new PaletteRow(3, 4));
+            waterTileAnimated = new AnimatedTexture(new SpriteSheet(waterTexture, new Point(2, 2), new Point(64)), 100);
+
+            palette = new Palette(
+                new Tileset(new SpriteSheet(plainsTexture, new Point(1, 1), new Point(64))),
+                new Tileset(new SpriteSheet(forestTexture, new Point(3, 1), new Point(64))),
+                new Tileset(new SpriteSheet(mountainsTexture, new Point(3, 1), new Point(64))),
+                new AnimatedTileSet(waterTileAnimated)
+            );
+
             level = new Level(palette, mapTexture);
             hud = new HUD(hudTexture, iconTexture, font, hpFont);
             actionBar = new ActionBar(actionBarTexture, promptFont);

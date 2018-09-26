@@ -15,5 +15,20 @@ namespace FEIG
             this.sheetDimensions = sheetDimensions;
             this.frameSize = frameSize;
         }
+
+        public Rectangle GetRect(Point frame)
+        {
+            return new Rectangle(
+                sheetDimensions.X * frame.X,
+                sheetDimensions.Y * frame.Y,
+                frameSize.X,
+                frameSize.Y
+            );
+        }
+
+        public int Count
+        {
+            get { return sheetDimensions.X * sheetDimensions.Y; }
+        }
     }
 }
