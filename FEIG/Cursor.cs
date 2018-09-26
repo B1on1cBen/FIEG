@@ -311,44 +311,69 @@ namespace FEIG
                 switch (mapCursorMode)
                 {
                     case MapCursorMode.MoveCursor:
-                        currentContext = pauseMenuContext;
-                        pauseMenu.Active = true;
-                        Game1.menuSound.Play();
+                        OnBackMoveCursor();
                         break;
 
                     case MapCursorMode.MoveUnit:
-                        validMoveTiles.Clear();
-                        selectedUnit.validAttackPoints.Clear();
-                        selectedUnit.Position = selectionPreviousPos;
-                        selectedUnit = null;
-                        mapCursorMode = MapCursorMode.MoveCursor;
-                        Game1.backSound.Play();
+                        OnBackMoveUnit();
                         break;
 
                     case MapCursorMode.AttackUnit:
-                        selectedUnit.validAttackPoints.Clear();
-                        currentContext = actionBarContext;
-                        actionBar.Active = true;
-                        Game1.backSound.Play();
+                        OnBackAttackUnit();
                         break;
                 }
             }
             else if (currentContext == actionBarContext)
             {
-                selectedUnit.Position = selectionPreviousPos;
-                Position = selectedUnit.Position;
-                currentContext = mapContext;
-                actionBar.Active = false;
-                mapCursorMode = MapCursorMode.MoveUnit;
-                Game1.backSound.Play();
+                OnBackActionBar();
             }
             else if (currentContext == pauseMenuContext)
             {
-                currentContext = mapContext;
-                pauseMenu.Active = false;
-                mapCursorMode = MapCursorMode.MoveCursor;
-                Game1.backSound.Play();
+                OnBackPauseMenu();
             }
+        }
+
+        void OnBackMoveCursor()
+        {
+            currentContext = pauseMenuContext;
+            pauseMenu.Active = true;
+            Game1.menuSound.Play();
+        }
+
+        void OnBackMoveUnit()
+        {
+            validMoveTiles.Clear();
+            selectedUnit.validAttackPoints.Clear();
+            selectedUnit.Position = selectionPreviousPos;
+            selectedUnit = null;
+            mapCursorMode = MapCursorMode.MoveCursor;
+            Game1.backSound.Play();
+        }
+
+        void OnBackAttackUnit()
+        {
+            selectedUnit.validAttackPoints.Clear();
+            currentContext = actionBarContext;
+            actionBar.Active = true;
+            Game1.backSound.Play();
+        }
+
+        void OnBackActionBar()
+        {
+            selectedUnit.Position = selectionPreviousPos;
+            Position = selectedUnit.Position;
+            currentContext = mapContext;
+            actionBar.Active = false;
+            mapCursorMode = MapCursorMode.MoveUnit;
+            Game1.backSound.Play();
+        }
+
+        void OnBackPauseMenu()
+        {
+            currentContext = mapContext;
+            pauseMenu.Active = false;
+            mapCursorMode = MapCursorMode.MoveCursor;
+            Game1.backSound.Play();
         }
 
         public static bool KeyPressed(Keys key)
