@@ -164,3 +164,5 @@ D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Tex
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_MountainTiles.xnb
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_PlainsTiles.xnb
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_WaterTiles.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\Units\Units 2.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\Portraits\Portraits2.xnb

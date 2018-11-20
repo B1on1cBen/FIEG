@@ -74,6 +74,8 @@ namespace FEIG.Units
         public SubTexture mapTexture;
         public Team team;
         public Weapon weapon;
+        public Weapon primaryWeapon;
+        public Weapon secondaryWeapon;
         public Stats stats;
         public MoveType moveType;
 
@@ -127,6 +129,13 @@ namespace FEIG.Units
         public Unit SetWeapon(Weapon weapon)
         {
             this.weapon = weapon;
+            this.primaryWeapon = weapon;
+            return this;
+        }
+
+        public Unit SetSecondaryWeapon(Weapon weapon)
+        {
+            this.secondaryWeapon = weapon;
             return this;
         }
 
@@ -165,25 +174,31 @@ namespace FEIG.Units
             }
         }
 
+        public void SwapWeapon()
+        {
+            if (secondaryWeapon == null)
+                return;
+
+            if (weapon == primaryWeapon)
+                weapon = secondaryWeapon;
+            else
+                weapon = primaryWeapon;
+        }
+
         public void StartCombat(Unit target)
         {
-            currentCombatRounds = 1;
-            target.currentCombatRounds = 1;
-            currentCombatRounds *= MathHelper.Clamp((stats.SPD - target.stats.SPD) / 5, 1, 2);
+            currentCombatRounds = (stats.SPD - target.stats.SPD) >= 5 ? 2 : 1;
 
             if (target.DistanceTo(position) != target.weapon.range)
                 target.currentCombatRounds = 0;
             else
-                target.currentCombatRounds *= MathHelper.Clamp((target.stats.SPD - stats.SPD) / 5, 1, 2);
+                target.currentCombatRounds = (target.stats.SPD - stats.SPD) >= 5 ? 2 : 1;
 
             Attack(target);
         }
 
         void Attack(Unit target)
         {
-            if (currentCombatRounds == 0)
-                return;
-
             float myDamage = weapon.might + stats.ATK;
             myDamage *= damageModifiers[(int)GetMyTypeMatchUp(target.weapon)];
             myDamage -= target.stats[(int)weapon.damageType];
@@ -197,7 +212,10 @@ namespace FEIG.Units
             if (!target.alive)
                 return;
 
-            target.Attack(this);
+            if (target.currentCombatRounds > 0)
+                target.Attack(this);
+            else if (currentCombatRounds > 0)
+                Attack(target);
         }
 
         public void AIRoutine()

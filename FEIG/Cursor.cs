@@ -54,7 +54,8 @@ namespace FEIG.UI
             {Game1.Input["Down"],  new CursorAction(()=>MoveOnGrid(new Point( 0,  1)), true)},
             {Game1.Input["Left"],  new CursorAction(()=>MoveOnGrid(new Point(-1,  0)), true)},
             {Game1.Input["Right"], new CursorAction(()=>MoveOnGrid(new Point( 1,  0)), true)},
-            {Game1.Input["ToggleDangerZone"], new CursorAction(()=>Game1.ToggleDangerZone(), false)}
+            {Game1.Input["ToggleDangerZone"], new CursorAction(()=>Game1.ToggleDangerZone(), false)},
+            {Game1.Input["SwitchWeapon"], new CursorAction(()=>SwapHoveredUnitWeapon(), false)}
         });
 
         // This is sort of like a cursor context, but it's really only a flag. 
@@ -218,7 +219,13 @@ namespace FEIG.UI
             }
         }
 
-        void RegisterValidMoveTiles()
+        private static void SwapHoveredUnitWeapon()
+        {
+            if (hoveredUnit != null && hoveredUnit.team == Team.Blue)
+                hoveredUnit.SwapWeapon();
+        }
+
+        private void RegisterValidMoveTiles()
         {
             validMoveTiles.Clear();
             PathFinder pathFinder = new PathFinder();
@@ -233,7 +240,7 @@ namespace FEIG.UI
             }
         }
 
-        void ToggleDangerZone(Unit target)
+        private void ToggleDangerZone(Unit target)
         {
             Game1.confirmSound.Play();
 
@@ -273,7 +280,7 @@ namespace FEIG.UI
             }
         }
 
-        void OnConfirmMoveUnit()
+        private void OnConfirmMoveUnit()
         {
             if (validMoveTiles.Contains(position))
             {
@@ -285,7 +292,7 @@ namespace FEIG.UI
                 Game1.deniedSound.Play();
         }
 
-        void OnConfirmAttackUnit()
+        private void OnConfirmAttackUnit()
         {
             if (selectedUnit.validAttackPoints.Contains(position))
             {
@@ -334,14 +341,14 @@ namespace FEIG.UI
             }
         }
 
-        void OnBackMoveCursor()
+        private void OnBackMoveCursor()
         {
             currentContext = pauseMenuContext;
             pauseMenu.Active = true;
             Game1.menuSound.Play();
         }
 
-        void OnBackMoveUnit()
+        private void OnBackMoveUnit()
         {
             validMoveTiles.Clear();
             selectedUnit.validAttackPoints.Clear();
@@ -351,7 +358,7 @@ namespace FEIG.UI
             Game1.backSound.Play();
         }
 
-        void OnBackAttackUnit()
+        private void OnBackAttackUnit()
         {
             selectedUnit.validAttackPoints.Clear();
             currentContext = actionBarContext;
@@ -359,7 +366,7 @@ namespace FEIG.UI
             Game1.backSound.Play();
         }
 
-        void OnBackActionBar()
+        private void OnBackActionBar()
         {
             selectedUnit.Position = selectionPreviousPos;
             Position = selectedUnit.Position;
@@ -369,7 +376,7 @@ namespace FEIG.UI
             Game1.backSound.Play();
         }
 
-        void OnBackPauseMenu()
+        private void OnBackPauseMenu()
         {
             currentContext = mapContext;
             pauseMenu.Active = false;

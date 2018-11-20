@@ -84,11 +84,12 @@ namespace FEIG
         {
             {"Confirm",          new CursorInput(new Keys[] {Keys.Z, Keys.Enter},             new Buttons[] {Buttons.A})},
             {"Back",             new CursorInput(new Keys[] {Keys.X, Keys.Escape, Keys.Back}, new Buttons[] {Buttons.B})},
+            {"SwitchWeapon",        new CursorInput(new Keys[] {Keys.C},                         new Buttons[] {Buttons.X})},
             {"ToggleDangerZone", new CursorInput(new Keys[] {Keys.Space},                     new Buttons[] {Buttons.Y})},
             {"Up",               new CursorInput(new Keys[] {Keys.Up, Keys.W},                new Buttons[] {Buttons.DPadUp})},
             {"Down",             new CursorInput(new Keys[] {Keys.Down, Keys.S},              new Buttons[] {Buttons.DPadDown})},
             {"Left",             new CursorInput(new Keys[] {Keys.Left, Keys.A},              new Buttons[] {Buttons.DPadLeft})},
-            {"Right",            new CursorInput(new Keys[] {Keys.Right, Keys.D},             new Buttons[] {Buttons.DPadRight})},
+            {"Right",            new CursorInput(new Keys[] {Keys.Right, Keys.D},             new Buttons[] {Buttons.DPadRight})}
         };
 
         public Game1()
@@ -111,8 +112,8 @@ namespace FEIG
             LoadTileTextures();
             cursorTexture = Content.Load<Texture2D>("Textures/Cursor");
             hudTexture = Content.Load<Texture2D>("Textures/FEIG HUD 2");
-            portraitTexture = Content.Load<Texture2D>("Textures/Portraits/Portraits");
-            unitMapTexture = Content.Load<Texture2D>("Textures/Units/Units");
+            portraitTexture = Content.Load<Texture2D>("Textures/Portraits/Portraits2");
+            unitMapTexture = Content.Load<Texture2D>("Textures/Units/Units 2");
             iconTexture = Content.Load<Texture2D>("Textures/Icons");
             actionBarTexture = Content.Load<Texture2D>("Textures/ActionBar");
             moveTileTexture = Content.Load<Texture2D>("Textures/MoveTiles");
@@ -241,14 +242,26 @@ namespace FEIG
             );
 
             // TANA
+            //units.Add(new Unit(7)
+            //    .SetName("Tana")
+            //    .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(196, 98), Unit.portraitSize)))
+            //    .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(128, 128, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
+            //    .SetTeam(Team.Blue)
+            //    .SetWeapon(Weapon.Lance)
+            //    .SetStats(new Stats(hp: 36, atk: 37, spd: 36, def: 25, res: 22))
+            //    .SetMoveType(MoveType.Flier)
+            //);
+
+            // VERONICA
             units.Add(new Unit(7)
-                .SetName("Tana")
+                .SetName("Veronica")
                 .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(196, 98), Unit.portraitSize)))
                 .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(128, 128, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
                 .SetTeam(Team.Blue)
-                .SetWeapon(Weapon.Lance)
-                .SetStats(new Stats(hp: 36, atk: 37, spd: 36, def: 25, res: 22))
-                .SetMoveType(MoveType.Flier)
+                .SetWeapon(new Weapon("Glaive", 16, 1, WeaponColor.Blue, DamageType.Def, new Point(0, 3)))
+                .SetSecondaryWeapon(new Weapon("Chakram", 14, 2, WeaponColor.Green, DamageType.Def, new Point(0, 2)))
+                .SetStats(new Stats(hp: 37, atk: 28, spd: 37, def: 26, res: 29))
+                .SetMoveType(MoveType.Infantry)
             );
         }
 
