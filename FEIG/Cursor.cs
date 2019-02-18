@@ -354,7 +354,9 @@ namespace FEIG.UI
             selectedUnit.validAttackPoints.Clear();
             selectedUnit.Position = selectionPreviousPos;
             selectedUnit = null;
+            hoveredUnit = Game1.GetUnit(position);
             mapCursorMode = MapCursorMode.MoveCursor;
+
             Game1.backSound.Play();
         }
 
