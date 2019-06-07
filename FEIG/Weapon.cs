@@ -35,7 +35,7 @@ namespace FEIG.Units
         public static readonly Weapon GreenDragon = new Weapon("Light", 16, 1, WeaponColor.Blue, DamageType.Res, new Point(2, 2));
         public static readonly Weapon BlueDragon = new Weapon("Dark", 16, 1, WeaponColor.Green, DamageType.Res, new Point(2, 2));
 
-        public static readonly Weapon ClericStaff = new Weapon("Staff", 7, 2, WeaponColor.Colorless, DamageType.Heal, new Point(0, 4));
+        public static readonly Weapon PriestStaff = new Weapon("Staff", 7, 2, WeaponColor.Colorless, DamageType.Heal, new Point(0, 4));
         public static readonly Weapon MageStaff = new Weapon("Staff", 7, 2, WeaponColor.Colorless, DamageType.Res, new Point(0, 4));
         public static readonly Weapon Dagger = new Weapon("Dagger", 9, 2, WeaponColor.Colorless, DamageType.Def, new Point(1, 4));
         public static readonly Weapon Bow = new Weapon("Bow", 9, 2, WeaponColor.Colorless, DamageType.Def, new Point(2, 4));

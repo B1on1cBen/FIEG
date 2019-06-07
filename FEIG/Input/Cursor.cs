@@ -4,6 +4,7 @@ using FEIG.Graphics;
 using FEIG.Map;
 using FEIG.UI;
 using FEIG.Units;
+using FEIG.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -25,8 +26,8 @@ namespace FEIG.Input
         }
 
         // Allows you to hold the cursor and move continuously in a direction
-        private readonly float holdDelay = 200; // How long to hold before turbo activates
-        private readonly float turboDelay = 50; // How often turbo repeats
+        private SimpleTimer holdTimer = new SimpleTimer(200); // How long to hold before turbo activates
+        private SimpleTimer turboTimer = new SimpleTimer(50); // How often turbo repeats
 
         public static Tile hoveredTile;
         public static Unit hoveredUnit;
@@ -41,10 +42,6 @@ namespace FEIG.Input
 
         private KeyboardState prevKeyboardState;
         private GamePadState prevGamePadState;
-
-        // Timers that use the delays above as values. (Allows timers to reset)
-        private float holdTimer;
-        private float turboTimer;
 
         // The movement key currently being held. (Can only be one)
         private Keys heldKey;
@@ -106,9 +103,6 @@ namespace FEIG.Input
 
             prevKeyboardState = Keyboard.GetState();
             prevGamePadState = GamePad.GetState(0);
-
-            holdTimer = holdDelay;
-            turboTimer = turboDelay;
         }
 
         public void Update(GameTime gameTime)
@@ -152,31 +146,31 @@ namespace FEIG.Input
             {
                 if (prevHeldKey != heldKey)
                 {
-                    holdTimer = holdDelay;
-                    turboTimer = turboDelay;
+                    holdTimer.Reset();
+                    turboTimer.Reset();
                 }
             }
             else
             {
                 if (prevheldButton != heldButton)
                 {
-                    holdTimer = holdDelay;
-                    turboTimer = turboDelay;
+                    holdTimer.Reset();
+                    turboTimer.Reset();
                 }
             }
 
-            if (holdTimer <= 0)
+            if (holdTimer.TimeLeft <= 0)
             {
-                if (turboTimer <= 0)
+                if (turboTimer.TimeLeft <= 0)
                 {
                     key.Value.action();
-                    turboTimer = turboDelay;
+                    turboTimer.Reset();
                 }
                 else
-                    turboTimer -= gameTime.ElapsedGameTime.Milliseconds;
+                    turboTimer.Tick(gameTime);
             }
             else
-                holdTimer -= gameTime.ElapsedGameTime.Milliseconds;
+                holdTimer.Tick(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
