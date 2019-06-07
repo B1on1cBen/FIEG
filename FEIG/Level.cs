@@ -23,7 +23,6 @@ namespace FEIG.Map
         public static readonly int levelWidth = 6;
         public static readonly int levelHeight = 8;
 
-        //public static Palette palette;
         public static TileSet[] palette;
         public static Point tileSize = new Point(64, 64);
 

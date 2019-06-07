@@ -25,7 +25,7 @@ namespace FEIG.Map
             this.spriteSheet = spriteSheet;
         }
 
-        public Tile GetTile(int x, int y)
+        public virtual Tile GetTile(int x, int y)
         {
             return new Tile(x, y, spriteSheet.texture, GetRandomRect(), tileType);
         }
@@ -48,22 +48,6 @@ namespace FEIG.Map
                 );
             }
             return rectangles;
-        }
-    }
-
-    public class AnimatedTileSet : TileSet
-    {
-        public AnimatedTexture animatedTexture;
-
-        public AnimatedTileSet(Color mapColor, TileType tileType, AnimatedTexture animatedTexture)
-        {
-            if (rand == null)
-                rand = new Random();
-
-            this.mapColor = mapColor;
-            this.tileType = tileType;
-            this.animatedTexture = animatedTexture;
-            spriteSheet = animatedTexture.SpriteSheet;
         }
     }
 }

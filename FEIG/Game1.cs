@@ -39,6 +39,7 @@ namespace FEIG
         public static Texture2D moveTileTexture;
         public static AnimatedTexture moveTileAnimated;
         public static AnimatedTexture attackTileAnimated;
+        public static AnimatedTexture waterTileAnimated;
 
         public static SoundEffect moveCursorSound;
         public static SoundEffect confirmSound;
@@ -51,8 +52,6 @@ namespace FEIG
         public static SoundEffect menuSound;
 
         public static Song music;
-
-        private int pauseTimer;
 
         public enum GameStates
         {
@@ -113,7 +112,11 @@ namespace FEIG
         {
             mapTexture = Content.Load<Texture2D>("Textures/Maps/Map1");
 
-            LoadTileTextures();
+            plainsTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_PlainsTiles");
+            forestTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_ForestTiles");
+            mountainsTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_MountainTiles");
+            waterTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_WaterTiles");
+
             cursorTexture = Content.Load<Texture2D>("Textures/Cursor");
             hudTexture = Content.Load<Texture2D>("Textures/FEIG HUD 2");
             portraitTexture = Content.Load<Texture2D>("Textures/Portraits/Portraits");
@@ -127,14 +130,6 @@ namespace FEIG
 
             moveTileAnimated = new AnimatedTexture(new SpriteSheet(moveTileTexture, new Point(3, 16), new Point(64)), new Point(0, 0), AnimatedTexture.LoopType.Horizontal, 100);
             attackTileAnimated = new AnimatedTexture(new SpriteSheet(moveTileTexture, new Point(3, 16), new Point(64)), new Point(0, 1), AnimatedTexture.LoopType.Horizontal, 100);
-        }
-
-        protected void LoadTileTextures()
-        {
-            plainsTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_PlainsTiles");
-            forestTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_ForestTiles");
-            mountainsTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_MountainTiles");
-            waterTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_WaterTiles");
         }
 
         protected void LoadSounds()
@@ -285,6 +280,7 @@ namespace FEIG
                 new TileSet(new Color(214, 233, 185), TileType.Plains, new SpriteSheet(plainsTexture, new Point(1, 1), new Point(64))),
                 new TileSet(new Color(76, 138, 103), TileType.Forest, new SpriteSheet(forestTexture, new Point(3, 1), new Point(64))),
                 new TileSet(new Color(114, 109, 108), TileType.Mountain, new SpriteSheet(mountainsTexture, new Point(3, 1), new Point(64))),
+                //new TileSet(new Color(76, 76, 255), TileType.Water, new SpriteSheet(waterTexture, new Point(2, 2), new Point(64)))
                 new AnimatedTileSet(new Color(76, 76, 255), TileType.Water, new AnimatedTexture(new SpriteSheet(waterTexture, new Point(2, 2), new Point(64)), 100))
             );
         }

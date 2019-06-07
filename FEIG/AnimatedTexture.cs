@@ -63,7 +63,9 @@ namespace FEIG.Graphics
                 frameTimer.Reset();
             }
             else
+            {
                 frameTimer.Tick(gameTime);
+            }
         }
 
         private void AdvanceFrame()
@@ -89,7 +91,9 @@ namespace FEIG.Graphics
         private void LoopAll()
         {
             if (currentFrame.X < SpriteSheet.sheetDimensions.Y - 1)
+            {
                 currentFrame.X++;
+            }
             else
             {
                 currentFrame.X = 0;
