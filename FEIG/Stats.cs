@@ -4,7 +4,7 @@ namespace FEIG.Units
 {
     public struct Stats
     {
-        private int[] stats;
+        private readonly int[] stats;
 
         public Stats(int hp, int atk, int spd, int def, int res)
         {

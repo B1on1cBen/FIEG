@@ -17,34 +17,35 @@ namespace FEIG.UI
             Resume,
             Quit
         }
-        private Texture2D menuTexture;
-        public MenuOptions selectedOption;
-        private readonly Rectangle[] optionRects;
-        public static Cursor cursor;
         public static readonly int offset = 64;
+        public static Cursor cursor;
+
+        public MenuOptions selectedOption;
+
+        private readonly Rectangle[] optionRects;
+
+        private Texture2D menuTexture;
         private string prompt = "";
-        public bool active = false;
+
+        public bool Active { get; set; }
 
         public PauseMenu(Texture2D menuTexture)
         {
             selectedOption = MenuOptions.EndTurn;
-
             this.menuTexture = menuTexture;
 
             int width = menuTexture.Width / 3;
             int height = menuTexture.Height;
 
             optionRects = new Rectangle[3];
-
             optionRects[0] = new Rectangle(0, 0, width, height);
             optionRects[1] = new Rectangle(width, 0, width, height);
             optionRects[2] = new Rectangle(width * 2, 0, width, height);
-
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (active)
+            if (Active)
                 spriteBatch.Draw(
                     menuTexture, new Vector2(Game1.windowSize.X / 2 - menuTexture.Width / 6, Game1.windowSize.Y / 2 - menuTexture.Height / 2), null, optionRects[(int)selectedOption], null, 0, null, null, SpriteEffects.None, 0);
             else
@@ -59,13 +60,7 @@ namespace FEIG.UI
         public void OnDown()
         {
             Game1.navigateForwardSound.Play();
-
-            int index = (int)selectedOption + 1;
-
-            if (index > 2)
-                index = 0;
-
-            SelectButton(index);
+            SelectButton(((int)selectedOption + 1) % 3);
         }
 
         public void OnUp()
@@ -73,9 +68,7 @@ namespace FEIG.UI
             Game1.navigateBackwardSound.Play();
 
             int index = (int)selectedOption - 1;
-
-            if (index < 0)
-                index = 2;
+            if (index < 0) index = 2;
 
             SelectButton(index);
         }
@@ -102,7 +95,6 @@ namespace FEIG.UI
                     Game1.backSound.Play();
                     Active = false;
                     Game1.gameState = Game1.GameStates.PlayerTurn;
-
                     break;
 
                 case MenuOptions.Quit:
@@ -110,7 +102,6 @@ namespace FEIG.UI
                     MediaPlayer.Stop();
                     Game1.gameState = Game1.GameStates.Quit;
                     break;
-
             }
         }
 
@@ -129,23 +120,12 @@ namespace FEIG.UI
                 case 2:
                     selectedOption = MenuOptions.Quit;
                     break;
-
             }
         }
 
         public void SelectButton(MenuOptions button)
         {
             selectedOption = button;
-        }
-
-        public bool Active
-        {
-            get { return active; }
-
-            set
-            {
-                active = value;
-            }
         }
     }
 }

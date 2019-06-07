@@ -64,9 +64,7 @@ namespace FEIG.Units
 
         public static readonly Point portraitSize = new Point(98, 98);
         public static readonly Point mapUnitSize = new Point(64, 64);
-
-        public static bool enemyAggro = false;
-        public static Input.Cursor cursor; // A handy reference to the cursor
+        public static Cursor cursor; // A handy reference to the cursor
 
         // These will not change
         public string name;
@@ -228,7 +226,7 @@ namespace FEIG.Units
             UpdateDangerZone();
             Unit[] targetsInRange = GetTargetableUnits();
 
-            if (targetsInRange.Length <= 0 && !enemyAggro)
+            if (targetsInRange.Length <= 0 && !Game1.enemyHasAggro)
             {
                 active = false;
                 return;
@@ -242,7 +240,7 @@ namespace FEIG.Units
 
         void AttackPlayerUnit(Unit[] targetsInRange)
         {
-            enemyAggro = true;
+            Game1.enemyHasAggro = true;
 
             Unit target = ChooseTarget(targetsInRange);
             if (target == null)
@@ -306,7 +304,6 @@ namespace FEIG.Units
         public void UpdateDangerZone()
         {
             List<Point> points = new List<Point>();
-
             PathFinder pathFinder = new PathFinder();
 
             // Add in all valid move tiles
@@ -400,10 +397,10 @@ namespace FEIG.Units
                     validMovePoints.Clear();
                     validAttackPoints.Clear();
 
-                    if (Input.Cursor.hoveredUnit == this)
+                    if (Cursor.hoveredUnit == this)
                     {
-                        Input.Cursor.hoveredUnit = null;
-                        Input.Cursor.MoveOnGrid(Input.Cursor.Position);
+                        Cursor.hoveredUnit = null;
+                        Cursor.MoveOnGrid(Cursor.Position);
                     }
                 }
             }
@@ -418,7 +415,7 @@ namespace FEIG.Units
 
         public bool CanMoveTo(Point point)
         {
-            // Can move to if:
+            // Can move to point if:
             // 1. Within movement range
             // 2. Moving to valid tile type for unit's move type
             // 3. Tile is not already occupied by another unit

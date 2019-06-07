@@ -1,5 +1,6 @@
 ﻿// Written by Ben Gordon
 
+using FEIG.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -18,12 +19,11 @@ namespace FEIG.Graphics
         }
 
         private LoopType loopType;
-        private float frameRate;
         private Point currentFrame;
-        private float frameTimer;
         private Rectangle frameRect;
+        private SimpleTimer frameTimer;
 
-        public SpriteSheet spriteSheet { get; private set; }
+        public SpriteSheet SpriteSheet { get; private set; }
 
         public AnimatedTexture(SpriteSheet spriteSheet, float frameRate)
         {
@@ -47,26 +47,23 @@ namespace FEIG.Graphics
 
         private void Initialize(SpriteSheet spriteSheet, Point startFrame, LoopType loopType, float frameRate)
         {
-            this.spriteSheet = spriteSheet;
+            this.SpriteSheet = spriteSheet;
             this.loopType = loopType;
-            this.frameRate = frameRate;
-
-            frameTimer = frameRate;
+            frameTimer = new SimpleTimer(frameRate);
             currentFrame = startFrame;
             frameRect = new Rectangle(startFrame.X * spriteSheet.frameSize.X, startFrame.Y * spriteSheet.frameSize.Y, spriteSheet.frameSize.X, spriteSheet.frameSize.Y);
-
             AnimatedTextures.Add(this);
         }
 
         public void Update(GameTime gameTime)
         {
-            if (frameTimer <= 0)
+            if (frameTimer.TimeLeft <= 0)
             {
                 AdvanceFrame();
-                frameTimer = frameRate;
+                frameTimer.Reset();
             }
             else
-                frameTimer -= gameTime.ElapsedGameTime.Milliseconds;
+                frameTimer.Tick(gameTime);
         }
 
         private void AdvanceFrame()
@@ -86,18 +83,18 @@ namespace FEIG.Graphics
                     break;
             }
 
-            frameRect = new Rectangle(currentFrame.X * spriteSheet.frameSize.X, currentFrame.Y * spriteSheet.frameSize.Y, spriteSheet.frameSize.X, spriteSheet.frameSize.Y);
+            frameRect = new Rectangle(currentFrame.X * SpriteSheet.frameSize.X, currentFrame.Y * SpriteSheet.frameSize.Y, SpriteSheet.frameSize.X, SpriteSheet.frameSize.Y);
         }
 
         private void LoopAll()
         {
-            if (currentFrame.X < spriteSheet.sheetDimensions.Y - 1)
+            if (currentFrame.X < SpriteSheet.sheetDimensions.Y - 1)
                 currentFrame.X++;
             else
             {
                 currentFrame.X = 0;
 
-                if (currentFrame.Y < spriteSheet.sheetDimensions.X - 1)
+                if (currentFrame.Y < SpriteSheet.sheetDimensions.X - 1)
                     currentFrame.Y++;
                 else
                     currentFrame.Y = 0;
@@ -106,7 +103,7 @@ namespace FEIG.Graphics
 
         private void LoopHorizontal()
         {
-            if (currentFrame.X < spriteSheet.sheetDimensions.Y - 1)
+            if (currentFrame.X < SpriteSheet.sheetDimensions.Y - 1)
                 currentFrame.X++;
             else
                 currentFrame.X = 0;
@@ -114,7 +111,7 @@ namespace FEIG.Graphics
 
         private void LoopVertical()
         {
-            if (currentFrame.Y < spriteSheet.sheetDimensions.X - 1)
+            if (currentFrame.Y < SpriteSheet.sheetDimensions.X - 1)
                 currentFrame.Y++;
             else
                 currentFrame.Y = 0;
@@ -127,7 +124,7 @@ namespace FEIG.Graphics
 
         public Texture2D GetTexture()
         {
-            return spriteSheet.texture;
+            return SpriteSheet.texture;
         }
     }
 }

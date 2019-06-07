@@ -1,4 +1,4 @@
-﻿// Written by Ben Gordon and Shawn Murdoch
+// Written by Ben Gordon and Shawn Murdoch
 
 using FEIG.Graphics;
 using FEIG.Map;
@@ -15,7 +15,7 @@ using FEIG.UI;
 
 namespace FEIG
 {
-#pragma warning disable CS0618
+#pragma warning disable CS0618 // For spritebatch thing that apparently isn't needed anymore?? Probably just that particular overload.
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -34,6 +34,11 @@ namespace FEIG
         Texture2D actionBarTexture;
         Texture2D titleScreen;
         Texture2D moveArrowTexture;
+        Texture2D pauseMenuTexture;
+
+        public static Texture2D moveTileTexture;
+        public static AnimatedTexture moveTileAnimated;
+        public static AnimatedTexture attackTileAnimated;
 
         public static SoundEffect moveCursorSound;
         public static SoundEffect confirmSound;
@@ -46,11 +51,8 @@ namespace FEIG
         public static SoundEffect menuSound;
 
         public static Song music;
-        public static Texture2D moveTileTexture;
-        Texture2D pauseMenuTexture;
+
         private int pauseTimer;
-        public static AnimatedTexture moveTileAnimated;
-        public static AnimatedTexture attackTileAnimated;
 
         public enum GameStates
         {
@@ -60,14 +62,13 @@ namespace FEIG
             Combat,
             LevelComplete,
             GameOver,
-            Pause,
             Quit
         };
 
         public static GameStates gameState = GameStates.TitleScreen;
 
         Level level;
-        public static Input.Cursor cursor;
+        public static Cursor cursor;
         HUD hud;
         ActionBar actionBar;
         PauseMenu pauseMenu;
@@ -81,12 +82,13 @@ namespace FEIG
         public static List<Unit> units = new List<Unit>();
         public static bool globalDangerZoneState = false;
         public static bool gameDone = false;
+        public static bool enemyHasAggro = false;
 
         public static readonly Dictionary<string, CursorInput> Input = new Dictionary<string, CursorInput>()
         {
             {"Confirm",          new CursorInput(new Keys[] {Keys.Z, Keys.Enter},             new Buttons[] {Buttons.A})},
             {"Back",             new CursorInput(new Keys[] {Keys.X, Keys.Escape, Keys.Back}, new Buttons[] {Buttons.B})},
-            {"SwitchWeapon",        new CursorInput(new Keys[] {Keys.C},                         new Buttons[] {Buttons.X})},
+            {"SwitchWeapon",     new CursorInput(new Keys[] {Keys.C},                         new Buttons[] {Buttons.X})},
             {"ToggleDangerZone", new CursorInput(new Keys[] {Keys.Space},                     new Buttons[] {Buttons.Y})},
             {"Up",               new CursorInput(new Keys[] {Keys.Up, Keys.W},                new Buttons[] {Buttons.DPadUp})},
             {"Down",             new CursorInput(new Keys[] {Keys.Down, Keys.S},              new Buttons[] {Buttons.DPadDown})},
@@ -114,8 +116,8 @@ namespace FEIG
             LoadTileTextures();
             cursorTexture = Content.Load<Texture2D>("Textures/Cursor");
             hudTexture = Content.Load<Texture2D>("Textures/FEIG HUD 2");
-            portraitTexture = Content.Load<Texture2D>("Textures/Portraits/Portraits2");
-            unitMapTexture = Content.Load<Texture2D>("Textures/Units/Units 2");
+            portraitTexture = Content.Load<Texture2D>("Textures/Portraits/Portraits");
+            unitMapTexture = Content.Load<Texture2D>("Textures/Units/Units");
             iconTexture = Content.Load<Texture2D>("Textures/Icons");
             actionBarTexture = Content.Load<Texture2D>("Textures/ActionBar");
             moveTileTexture = Content.Load<Texture2D>("Textures/MoveTiles");
@@ -165,7 +167,7 @@ namespace FEIG
         {
             // WENDY
             units.Add(new Unit(0)
-                .SetName("Wendy")
+                .SetName("Gwen")
                 .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(0, 0), Unit.portraitSize)))
                 .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(new Point(0, 0), new Point(Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2))))
                 .SetTeam(Team.Red)
@@ -254,6 +256,7 @@ namespace FEIG
                 .SetMoveType(MoveType.Flier)
             );
 
+            #region Veronica
             // VERONICA
             //units.Add(new Unit(7)
             //    .SetName("Veronica")
@@ -265,6 +268,7 @@ namespace FEIG
             //    .SetStats(new Stats(hp: 37, atk: 28, spd: 37, def: 26, res: 29))
             //    .SetMoveType(MoveType.Infantry)
             //);
+            #endregion Veronica
         }
 
         protected void InitializeUnits()
@@ -315,7 +319,7 @@ namespace FEIG
             InitializeUnits();
             InitializeMenus();
 
-            cursor = new Input.Cursor(new Point(2, 7), this.cursorTexture, this.moveArrowTexture, actionBar, pauseMenu);
+            cursor = new Cursor(new Point(2, 7), this.cursorTexture, this.moveArrowTexture, actionBar, pauseMenu);
             ActionBar.cursor = cursor;
             PauseMenu.cursor = cursor;
         }
@@ -330,12 +334,12 @@ namespace FEIG
                 MediaPlayer.Volume = 0.5f;
                 MediaPlayer.Play(music);
                 gameState = GameStates.PlayerTurn;
-                Unit.enemyAggro = false;
+                enemyHasAggro = false;
             }
         }
 
         protected void UpdatePlayerTurn(GameTime gameTime)
-        {
+        {        
             cursor.Update(gameTime);
             CheckForEndGame();
         }
@@ -373,21 +377,6 @@ namespace FEIG
             }
         }
 
-        protected void UpdatePause()
-        {
-            pauseMenu.Active = true;
-            if ((Keyboard.GetState().IsKeyDown(Keys.Escape)))
-            {
-                pauseTimer++;
-                if (pauseTimer >= 10)
-                {
-                    pauseTimer = 0;
-                    pauseMenu.Active = false;
-                    gameState = GameStates.PlayerTurn;
-                }
-            }
-        }
-
         protected void UpdateAnimatedTextures(GameTime gameTime)
         {
             foreach (AnimatedTexture animTexture in AnimatedTexture.AnimatedTextures)
@@ -396,6 +385,7 @@ namespace FEIG
 
         protected override void Update(GameTime gameTime)
         {
+            // HACK: Makes closing the game easier while testing.
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
                 MediaPlayer.Stop();
@@ -424,10 +414,6 @@ namespace FEIG
 
                 case GameStates.GameOver:
                     UpdateGameOver();
-                    break;
-
-                case GameStates.Pause:
-                    UpdatePause();
                     break;
 
                 case GameStates.Quit:
@@ -471,7 +457,8 @@ namespace FEIG
 
         protected void DrawGame()
         {
-            hud.Draw(spriteBatch); // Rendering the hud on the bottom so that units don't get cut off if they are on the top row
+            // Rendering the hud on the bottom so that units don't get cut off if they are on the top row
+            hud.Draw(spriteBatch); 
             actionBar.Draw(spriteBatch);
             level.Draw(spriteBatch);
 

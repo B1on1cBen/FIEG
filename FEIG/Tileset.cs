@@ -63,7 +63,7 @@ namespace FEIG.Map
             this.mapColor = mapColor;
             this.tileType = tileType;
             this.animatedTexture = animatedTexture;
-            spriteSheet = animatedTexture.spriteSheet;
+            spriteSheet = animatedTexture.SpriteSheet;
         }
     }
 }

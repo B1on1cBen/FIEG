@@ -4,8 +4,8 @@ namespace FEIG.Input
 {
     public class CursorInput
     {
-        Keys[] keys;
-        Buttons[] buttons;
+        readonly Keys[] keys;
+        readonly Buttons[] buttons;
         public bool lastPressWasKey = false;
         public bool lastHoldWasKey = false;
 
@@ -15,11 +15,11 @@ namespace FEIG.Input
             this.buttons = buttons;
         }
 
-        public bool IsPressed(Cursor cursor)
+        public bool IsPressed()
         {
             foreach (Keys key in keys)
             {
-                if (cursor.KeyPressed(key))
+                if (Cursor.KeyPressed(key))
                 {
                     lastPressWasKey = true;
                     return true;
@@ -28,7 +28,7 @@ namespace FEIG.Input
 
             foreach (Buttons button in buttons)
             {
-                if (cursor.ButtonPressed(button))
+                if (Cursor.ButtonPressed(button))
                 {
                     lastPressWasKey = false;
                     return true;
@@ -38,11 +38,11 @@ namespace FEIG.Input
             return false;
         }
 
-        public bool IsHeld(Cursor cursor)
+        public bool IsHeld()
         {
             foreach (Keys key in keys)
             {
-                if (cursor.KeyHeld(key))
+                if (Cursor.KeyHeld(key))
                 {
                     lastHoldWasKey = true;
                     return true;
@@ -51,7 +51,7 @@ namespace FEIG.Input
 
             foreach (Buttons button in buttons)
             {
-                if (cursor.ButtonHeld(button))
+                if (Cursor.ButtonHeld(button))
                 {
                     lastHoldWasKey = false;
                     return true;

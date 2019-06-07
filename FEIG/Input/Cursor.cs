@@ -40,16 +40,16 @@ namespace FEIG.Input
         private static ActionBar actionBar;
         private static PauseMenu pauseMenu;
 
-        private KeyboardState prevKeyboardState;
-        private GamePadState prevGamePadState;
+        private static KeyboardState prevKeyboardState;
+        private static GamePadState prevGamePadState;
 
         // The movement key currently being held. (Can only be one)
-        private Keys heldKey;
-        private Keys prevHeldKey;
-        private Buttons heldButton;
-        private Buttons prevheldButton;
+        private static Keys heldKey;
+        private static Keys prevHeldKey;
+        private static Buttons heldButton;
+        private static Buttons prevheldButton;
 
-        private bool inputHeldThisFrame = false;
+        private static bool inputHeldThisFrame = false;
 
         private AnimatedTexture texture; // Make the cursor grow and shrink because it looks really really nice
         private readonly Texture2D moveArrowTexture;
@@ -111,10 +111,10 @@ namespace FEIG.Input
 
             if (active)
             {
-                if (Game1.Input["Confirm"].IsPressed(this))
+                if (Game1.Input["Confirm"].IsPressed())
                     OnConfirm();
 
-                if (Game1.Input["Back"].IsPressed(this))
+                if (Game1.Input["Back"].IsPressed())
                     OnBack();
 
                 // This will handle pressed keys for any cursor context
@@ -123,10 +123,10 @@ namespace FEIG.Input
                     // Note: it is possible to press a key and hold a key at the same time
                     // with this setup. This is intentional. It doesn't feel right otherwise.
 
-                    if (key.Key.IsPressed(this))
+                    if (key.Key.IsPressed())
                         key.Value.action();
 
-                    if (key.Value.useTurbo && key.Key.IsHeld(this))
+                    if (key.Value.useTurbo && key.Key.IsHeld())
                         UpdateHoldingKey(key, gameTime);
                 }
 
@@ -337,8 +337,8 @@ namespace FEIG.Input
         private void OnBackMoveCursor()
         {
             currentContext = pauseMenuContext;
-            pauseMenu.Active = true;
             Game1.menuSound.Play();
+            pauseMenu.Active = true;
         }
 
         private void OnBackMoveUnit()
@@ -374,17 +374,17 @@ namespace FEIG.Input
         private void OnBackPauseMenu()
         {
             currentContext = mapContext;
-            pauseMenu.Active = false;
             mapCursorMode = MapCursorMode.MoveCursor;
             Game1.backSound.Play();
+            pauseMenu.Active = false;
         }
 
-        public bool KeyPressed(Keys key)
+        public static bool KeyPressed(Keys key)
         {
             return Keyboard.GetState().IsKeyDown(key) && !prevKeyboardState.IsKeyDown(key);
         }
 
-        public bool KeyHeld(Keys key)
+        public static bool KeyHeld(Keys key)
         {
             bool held = Keyboard.GetState().IsKeyDown(key) && prevKeyboardState.IsKeyDown(key);
 
@@ -398,12 +398,12 @@ namespace FEIG.Input
             return false;
         }
 
-        public bool ButtonPressed(Buttons button)
+        public static bool ButtonPressed(Buttons button)
         {
             return GamePad.GetState(0).IsButtonDown(button) && !prevGamePadState.IsButtonDown(button);
         }
 
-        public bool ButtonHeld(Buttons button)
+        public static bool ButtonHeld(Buttons button)
         {
             bool held = GamePad.GetState(0).IsButtonDown(button) && prevGamePadState.IsButtonDown(button); ;
 
