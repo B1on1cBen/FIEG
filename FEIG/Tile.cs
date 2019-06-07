@@ -34,21 +34,27 @@ namespace FEIG.Map
         public Texture2D texture;
         public Rectangle rect;
         public TileType type;
+        public int tilesetIndex;
+        public bool animated = false;
 
-        public Tile(Vector2 position, Texture2D texture, Rectangle rect, TileType type)
+        public Tile(Vector2 position, Texture2D texture, Rectangle rect, TileType type, int tilesetIndex, bool animated)
         {
             this.position = position;
             this.texture = texture;
             this.rect = rect;
             this.type = type;
+            this.tilesetIndex = tilesetIndex;
+            this.animated = animated;
         }
 
-        public Tile(int x, int y, Texture2D texture, Rectangle rect, TileType type)
+        public Tile(int x, int y, Texture2D texture, Rectangle rect, TileType type, int tilesetIndex, bool animated)
         {
             position = new Vector2(x, y);
             this.texture = texture;
             this.rect = rect;
             this.type = type;
+            this.tilesetIndex = tilesetIndex;
+            this.animated = animated;
         }
     }
 }

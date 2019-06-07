@@ -25,34 +25,36 @@ namespace FEIG.Graphics
 
         public SpriteSheet SpriteSheet { get; private set; }
 
-        public AnimatedTexture(SpriteSheet spriteSheet, float frameRate)
+        public AnimatedTexture(SpriteSheet spriteSheet, float frameRate, bool includeInList = true)
         {
             Initialize(spriteSheet, new Point(0, 0), LoopType.All, frameRate);
         }
 
-        public AnimatedTexture(SpriteSheet spriteSheet, Point startFrame, float frameRate)
+        public AnimatedTexture(SpriteSheet spriteSheet, Point startFrame, float frameRate, bool includeInList = true)
         {
             Initialize(spriteSheet, startFrame, LoopType.All, frameRate);
         }
 
-        public AnimatedTexture(SpriteSheet spriteSheet, LoopType loopType, float frameRate)
+        public AnimatedTexture(SpriteSheet spriteSheet, LoopType loopType, float frameRate, bool includeInList = true)
         {
             Initialize(spriteSheet, new Point(0, 0), loopType, frameRate);
         }
 
-        public AnimatedTexture(SpriteSheet spriteSheet, Point startFrame, LoopType loopType, float frameRate)
+        public AnimatedTexture(SpriteSheet spriteSheet, Point startFrame, LoopType loopType, float frameRate, bool includeInList = true)
         {
             Initialize(spriteSheet, startFrame, loopType, frameRate);
         }
 
-        private void Initialize(SpriteSheet spriteSheet, Point startFrame, LoopType loopType, float frameRate)
+        private void Initialize(SpriteSheet spriteSheet, Point startFrame, LoopType loopType, float frameRate, bool includeInList = true)
         {
             this.SpriteSheet = spriteSheet;
             this.loopType = loopType;
             frameTimer = new SimpleTimer(frameRate);
             currentFrame = startFrame;
             frameRect = new Rectangle(startFrame.X * spriteSheet.frameSize.X, startFrame.Y * spriteSheet.frameSize.Y, spriteSheet.frameSize.X, spriteSheet.frameSize.Y);
-            AnimatedTextures.Add(this);
+
+            if(includeInList)
+                AnimatedTextures.Add(this);
         }
 
         public void Update(GameTime gameTime)

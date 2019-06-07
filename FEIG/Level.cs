@@ -1,5 +1,6 @@
 // Written by Ben Gordon
 
+using FEIG.Graphics;
 using FEIG.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -102,7 +103,18 @@ namespace FEIG.Map
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Tile tile in grid)
-                spriteBatch.Draw(tile.texture, tile.position, null, tile.rect, null, 0, Vector2.One, Color.White, SpriteEffects.None, 0);
+            {
+                if (tile.animated)
+                {
+                    AnimatedTileSet animatedTileSet = (AnimatedTileSet)palette[tile.tilesetIndex];
+                    AnimatedTexture animatedTexture = animatedTileSet.animatedTexture;
+                    spriteBatch.Draw(animatedTexture.GetTexture(), tile.position, null, animatedTexture.GetFrameRect(), null, 0, null, null, SpriteEffects.None, 0);             
+                }
+                else
+                {
+                    spriteBatch.Draw(tile.texture, tile.position, null, tile.rect, null, 0, Vector2.One, Color.White, SpriteEffects.None, 0);
+                }
+            }
         }
 
         public static Tile GetTile(Point point)

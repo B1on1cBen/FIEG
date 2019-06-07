@@ -92,7 +92,7 @@ namespace FEIG.Input
             currentContext = mapContext;
             mapCursorMode = MapCursorMode.MoveCursor;
 
-            this.texture = new AnimatedTexture(new SpriteSheet(texture, new Point(1, 2), Level.tileSize), 500);
+            this.texture = new AnimatedTexture(new SpriteSheet(texture, new Point(1, 2), Level.tileSize), 500, includeInList: false);
             this.moveArrowTexture = moveArrowTexture;
             Cursor.actionBar = actionBar;
             Cursor.pauseMenu = pauseMenu;

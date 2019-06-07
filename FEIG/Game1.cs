@@ -130,6 +130,7 @@ namespace FEIG
 
             moveTileAnimated = new AnimatedTexture(new SpriteSheet(moveTileTexture, new Point(3, 16), new Point(64)), new Point(0, 0), AnimatedTexture.LoopType.Horizontal, 100);
             attackTileAnimated = new AnimatedTexture(new SpriteSheet(moveTileTexture, new Point(3, 16), new Point(64)), new Point(0, 1), AnimatedTexture.LoopType.Horizontal, 100);
+            waterTileAnimated = new AnimatedTexture(new SpriteSheet(waterTexture, new Point(2, 2), new Point(64)), 500);
         }
 
         protected void LoadSounds()
@@ -277,11 +278,10 @@ namespace FEIG
         {
             level = new Level(
                 mapTexture,
-                new TileSet(new Color(214, 233, 185), TileType.Plains, new SpriteSheet(plainsTexture, new Point(1, 1), new Point(64))),
-                new TileSet(new Color(76, 138, 103), TileType.Forest, new SpriteSheet(forestTexture, new Point(3, 1), new Point(64))),
-                new TileSet(new Color(114, 109, 108), TileType.Mountain, new SpriteSheet(mountainsTexture, new Point(3, 1), new Point(64))),
-                //new TileSet(new Color(76, 76, 255), TileType.Water, new SpriteSheet(waterTexture, new Point(2, 2), new Point(64)))
-                new AnimatedTileSet(new Color(76, 76, 255), TileType.Water, new AnimatedTexture(new SpriteSheet(waterTexture, new Point(2, 2), new Point(64)), 100))
+                new TileSet(new Color(214, 233, 185), TileType.Plains, new SpriteSheet(plainsTexture, new Point(1, 1), new Point(64)), 0),
+                new TileSet(new Color(76, 138, 103), TileType.Forest, new SpriteSheet(forestTexture, new Point(3, 1), new Point(64)), 1),
+                new TileSet(new Color(114, 109, 108), TileType.Mountain, new SpriteSheet(mountainsTexture, new Point(3, 1), new Point(64)), 2),
+                new AnimatedTileSet(new Color(76, 76, 255), TileType.Water, waterTileAnimated, 3)
             );
         }
 
@@ -441,6 +441,9 @@ namespace FEIG
             else
             {
                 DrawGame();
+
+                // IT DRAWS
+                //spriteBatch.Draw(waterTileAnimated.GetTexture(), new Vector2(0, 0), null, waterTileAnimated.GetFrameRect(), null, 0, null, null, SpriteEffects.None, 0);
             }
 
             if (gameState == GameStates.PlayerTurn)

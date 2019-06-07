@@ -217,7 +217,6 @@ C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.DXGI.xml
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.XInput.xml
-C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.csprojAssemblyReference.cache
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.csproj.CoreCompileInputs.cache
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.csproj.CopyComplete
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.exe
