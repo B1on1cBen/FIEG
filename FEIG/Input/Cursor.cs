@@ -25,7 +25,7 @@ namespace FEIG.Input
             AttackUnit
         }
 
-        // Allows you to hold the cursor and move continuously in a direction
+        // Allows you to hold an input to continuously press it while it is held.
         private SimpleTimer holdTimer = new SimpleTimer(200); // How long to hold before turbo activates
         private SimpleTimer turboTimer = new SimpleTimer(50); // How often turbo repeats
 

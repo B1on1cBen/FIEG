@@ -1,5 +1,9 @@
 ﻿//--Shawn Murdoch--//
 //--I used the ActionBar script that Ben wrote and worked it so that it would work for the pause menu--//
+
+// Ben Gordon
+// And it worked great, but I tweaked it a little bit :)
+
 using FEIG.Input;
 using FEIG.Units;
 using Microsoft.Xna.Framework;
@@ -17,17 +21,13 @@ namespace FEIG.UI
             Resume,
             Quit
         }
-        public static readonly int offset = 64;
+
         public static Cursor cursor;
-
-        public MenuOptions selectedOption;
-
-        private readonly Rectangle[] optionRects;
-
-        private Texture2D menuTexture;
-        private string prompt = "";
-
         public bool Active { get; set; }
+
+        private MenuOptions selectedOption;
+        private readonly Rectangle[] optionRects;
+        private Texture2D menuTexture;
 
         public PauseMenu(Texture2D menuTexture)
         {
@@ -46,15 +46,7 @@ namespace FEIG.UI
         public void Draw(SpriteBatch spriteBatch)
         {
             if (Active)
-                spriteBatch.Draw(
-                    menuTexture, new Vector2(Game1.windowSize.X / 2 - menuTexture.Width / 6, Game1.windowSize.Y / 2 - menuTexture.Height / 2), null, optionRects[(int)selectedOption], null, 0, null, null, SpriteEffects.None, 0);
-            else
-                spriteBatch.DrawString(Game1.font, prompt, new Vector2(20, 20), Color.White);
-        }
-
-        public void SetPrompt(string prompt)
-        {
-            this.prompt = prompt;
+                spriteBatch.Draw(menuTexture, new Vector2(Game1.windowSize.X / 2 - menuTexture.Width / 6, Game1.windowSize.Y / 2 - menuTexture.Height / 2), null, optionRects[(int)selectedOption], null, 0, null, null, SpriteEffects.None, 0);
         }
 
         public void OnDown()
@@ -107,25 +99,7 @@ namespace FEIG.UI
 
         public void SelectButton(int index)
         {
-            switch (index)
-            {
-                case 0:
-                    selectedOption = MenuOptions.EndTurn;
-                    break;
-
-                case 1:
-                    selectedOption = MenuOptions.Resume;
-                    break;
-
-                case 2:
-                    selectedOption = MenuOptions.Quit;
-                    break;
-            }
-        }
-
-        public void SelectButton(MenuOptions button)
-        {
-            selectedOption = button;
+            selectedOption = (MenuOptions) index;
         }
     }
 }

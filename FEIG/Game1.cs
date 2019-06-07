@@ -351,7 +351,7 @@ namespace FEIG
             ReactivateUnits();
 
             // Reselect whatever the cursor is looking at
-            FEIG.Input.Cursor.MoveOnGrid(new Point(0, 0));
+            Cursor.MoveOnGrid(new Point(0, 0));
             gameState = GameStates.PlayerTurn;
 
             CheckForEndGame();
