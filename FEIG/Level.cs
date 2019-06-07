@@ -1,11 +1,12 @@
 // Written by Ben Gordon
 
-using FEIG.UI;
+using FEIG.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace FEIG.Map
 {
+#pragma warning disable CS0618
     public class Level
     {
         // These are used to tell where units are placed at the beginning of the game. 

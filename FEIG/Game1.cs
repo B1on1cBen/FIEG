@@ -2,7 +2,7 @@
 
 using FEIG.Graphics;
 using FEIG.Map;
-using FEIG.UI;
+using FEIG.Input;
 using FEIG.Units;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -11,9 +11,11 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using FEIG.UI;
 
 namespace FEIG
 {
+#pragma warning disable CS0618
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -65,7 +67,7 @@ namespace FEIG
         public static GameStates gameState = GameStates.TitleScreen;
 
         Level level;
-        public static Cursor cursor;
+        public static Input.Cursor cursor;
         HUD hud;
         ActionBar actionBar;
         PauseMenu pauseMenu;
@@ -242,27 +244,27 @@ namespace FEIG
             );
 
             // TANA
-            //units.Add(new Unit(7)
-            //    .SetName("Tana")
-            //    .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(196, 98), Unit.portraitSize)))
-            //    .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(128, 128, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
-            //    .SetTeam(Team.Blue)
-            //    .SetWeapon(Weapon.Lance)
-            //    .SetStats(new Stats(hp: 36, atk: 37, spd: 36, def: 25, res: 22))
-            //    .SetMoveType(MoveType.Flier)
-            //);
-
-            // VERONICA
             units.Add(new Unit(7)
-                .SetName("Veronica")
+                .SetName("Tana")
                 .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(196, 98), Unit.portraitSize)))
                 .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(128, 128, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
                 .SetTeam(Team.Blue)
-                .SetWeapon(new Weapon("Glaive", 16, 1, WeaponColor.Blue, DamageType.Def, new Point(0, 3)))
-                .SetSecondaryWeapon(new Weapon("Chakram", 14, 2, WeaponColor.Green, DamageType.Def, new Point(0, 2)))
-                .SetStats(new Stats(hp: 37, atk: 28, spd: 37, def: 26, res: 29))
-                .SetMoveType(MoveType.Infantry)
+                .SetWeapon(Weapon.Lance)
+                .SetStats(new Stats(hp: 36, atk: 37, spd: 36, def: 25, res: 22))
+                .SetMoveType(MoveType.Flier)
             );
+
+            // VERONICA
+            //units.Add(new Unit(7)
+            //    .SetName("Veronica")
+            //    .SetPortraitSprite(new SubTexture(portraitTexture, new Rectangle(new Point(196, 98), Unit.portraitSize)))
+            //    .SetMapSprite(new SubTexture(unitMapTexture, new Rectangle(128, 128, Unit.mapUnitSize.X, Unit.mapUnitSize.Y * 2)))
+            //    .SetTeam(Team.Blue)
+            //    .SetWeapon(new Weapon("Glaive", 16, 1, WeaponColor.Blue, DamageType.Def, new Point(0, 3)))
+            //    .SetSecondaryWeapon(new Weapon("Chakram", 14, 2, WeaponColor.Green, DamageType.Def, new Point(0, 2)))
+            //    .SetStats(new Stats(hp: 37, atk: 28, spd: 37, def: 26, res: 29))
+            //    .SetMoveType(MoveType.Infantry)
+            //);
         }
 
         protected void InitializeUnits()
@@ -313,7 +315,7 @@ namespace FEIG
             InitializeUnits();
             InitializeMenus();
 
-            cursor = new Cursor(new Point(2, 7), cursorTexture, moveArrowTexture, actionBar, pauseMenu);
+            cursor = new Input.Cursor(new Point(2, 7), this.cursorTexture, this.moveArrowTexture, actionBar, pauseMenu);
             ActionBar.cursor = cursor;
             PauseMenu.cursor = cursor;
         }
@@ -345,7 +347,7 @@ namespace FEIG
             ReactivateUnits();
 
             // Reselect whatever the cursor is looking at
-            Cursor.MoveOnGrid(new Point(0, 0));
+            FEIG.Input.Cursor.MoveOnGrid(new Point(0, 0));
             gameState = GameStates.PlayerTurn;
 
             CheckForEndGame();
@@ -487,17 +489,17 @@ namespace FEIG
 
         protected void DrawValidMoveTiles()
         {
-            foreach (Point point in Cursor.validMoveTiles)
+            foreach (Point point in cursor.validMoveTiles)
             {
                 if (GetUnit(point) == null)
-                    spriteBatch.Draw(moveTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, moveTileAnimated.GetFrameRect());
+                    this.spriteBatch.Draw(moveTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, moveTileAnimated.GetFrameRect());
             }
         }
 
         protected void DrawValidAttackTiles()
         {
             foreach (Point point in Cursor.selectedUnit.validAttackPoints)
-                spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect());
+                this.spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect());
         }
 
         protected void DrawDangerZone()

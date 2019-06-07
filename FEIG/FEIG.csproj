@@ -48,8 +48,10 @@
   <ItemGroup>
     <Compile Include="ActionBar.cs" />
     <Compile Include="AnimatedTexture.cs" />
-    <Compile Include="Cursor.cs" />
-    <Compile Include="CursorHelper.cs" />
+    <Compile Include="Input\Cursor.cs" />
+    <Compile Include="Input\CursorAction.cs" />
+    <Compile Include="Input\CursorContext.cs" />
+    <Compile Include="Input\CursorInput.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="PathFinder.cs" />
     <Compile Include="SpriteSheet.cs" />

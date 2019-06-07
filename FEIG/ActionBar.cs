@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FEIG.Input;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace FEIG.UI
 {
+#pragma warning disable CS0618
     public class ActionBar
     {
         public enum BarButtons
@@ -16,8 +18,8 @@ namespace FEIG.UI
         public static Cursor cursor;
 
         public BarButtons selectedButton;
-        private Texture2D buttonTexture;
-        private Rectangle[] buttonRects;
+        private readonly Texture2D buttonTexture;
+        private readonly Rectangle[] buttonRects;
 
         private string prompt = "";
 

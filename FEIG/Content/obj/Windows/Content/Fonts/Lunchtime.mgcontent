@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Fonts/Lunchtime.spritefont</SourceFile>
+  <SourceTime>2019-06-07T11:10:31.0889151-04:00</SourceTime>
+  <DestFile>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/bin/Windows/Content/Fonts/Lunchtime.xnb</DestFile>
+  <DestTime>2019-06-07T11:28:52.6576085-04:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2018-12-08T11:35:54-05:00</ProcessorTime>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

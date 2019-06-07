@@ -1,18 +1,20 @@
 ﻿// Written by Ben Gordon
 
 using FEIG.Map;
+using FEIG.UI;
 using FEIG.Units;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace FEIG.UI
+namespace FEIG.Input
 {
+#pragma warning disable CS0618
     public class HUD
     {
         public static int offset = 128;
 
         Texture2D hudBack;
-        Texture2D icons;
+        readonly Texture2D icons;
         SpriteFont defaultFont;
         SpriteFont hpFont;
 

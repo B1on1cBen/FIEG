@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/SoundEffects/victory.wav</SourceFile>
+  <SourceTime>2019-06-07T11:10:31.1547413-04:00</SourceTime>
+  <DestFile>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/bin/Windows/Content/SoundEffects/victory.xnb</DestFile>
+  <DestTime>2019-06-07T11:28:54.8740569-04:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2018-12-08T11:35:54-05:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

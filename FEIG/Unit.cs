@@ -2,7 +2,7 @@
 
 using FEIG.Graphics;
 using FEIG.Map;
-using FEIG.UI;
+using FEIG.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -31,6 +31,7 @@ namespace FEIG.Units
         Disadvantage = -1
     }
 
+#pragma warning disable CS0618
     public class Unit
     {
         // Tells unit if it can pass Plains, Forest, Mountain, or Water (also including white and black spawns for error cases)
@@ -65,7 +66,7 @@ namespace FEIG.Units
         public static readonly Point mapUnitSize = new Point(64, 64);
 
         public static bool enemyAggro = false;
-        public static Cursor cursor; // A handy reference to the cursor
+        public static Input.Cursor cursor; // A handy reference to the cursor
 
         // These will not change
         public string name;
@@ -399,10 +400,10 @@ namespace FEIG.Units
                     validMovePoints.Clear();
                     validAttackPoints.Clear();
 
-                    if (Cursor.hoveredUnit == this)
+                    if (Input.Cursor.hoveredUnit == this)
                     {
-                        Cursor.hoveredUnit = null;
-                        Cursor.MoveOnGrid(Cursor.Position);
+                        Input.Cursor.hoveredUnit = null;
+                        Input.Cursor.MoveOnGrid(Input.Cursor.Position);
                     }
                 }
             }

@@ -1,5 +1,6 @@
 ﻿//--Shawn Murdoch--//
 //--I used the ActionBar script that Ben wrote and worked it so that it would work for the pause menu--//
+using FEIG.Input;
 using FEIG.Units;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,6 +8,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace FEIG.UI
 {
+#pragma warning disable CS0618
     public class PauseMenu
     {
         public enum MenuOptions
@@ -17,7 +19,7 @@ namespace FEIG.UI
         }
         private Texture2D menuTexture;
         public MenuOptions selectedOption;
-        private Rectangle[] optionRects;
+        private readonly Rectangle[] optionRects;
         public static Cursor cursor;
         public static readonly int offset = 64;
         private string prompt = "";

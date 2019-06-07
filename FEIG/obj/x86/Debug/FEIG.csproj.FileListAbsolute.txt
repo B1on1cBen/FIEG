@@ -166,3 +166,59 @@ D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Tex
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_WaterTiles.xnb
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\Units\Units 2.xnb
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Textures\Portraits\Portraits2.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\Units\Units 2.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\Units\Units.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_ForestTiles.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_MountainTiles.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_PlainsTiles.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\TilePalettes\FIEG_WaterTiles.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\Portraits\Portraits.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\Portraits\Portraits2.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Music\Winds Across the Plains.wma
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Music\Winds Across the Plains.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\Maps\Map1.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\ActionBar.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\battleUI.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\Cursor.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\FEIG HUD 2.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\FEIG Menu.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\FEIG_Logo.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\Icons.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\MoveArrow.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Textures\MoveTiles.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\SoundEffects\back.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\SoundEffects\confirm.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\SoundEffects\defeat.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\SoundEffects\denied.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\SoundEffects\menu.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\SoundEffects\moveCursor.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\SoundEffects\navigateBackward.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\SoundEffects\navigateForward.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\SoundEffects\victory.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Fonts\ComicSans.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Fonts\Lunchtime.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Fonts\Munro.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Fonts\MunroSmaller.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\FEIG.exe
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\FEIG.pdb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.dll
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.xml
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.csprojAssemblyReference.cache
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.csproj.CoreCompileInputs.cache
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.csproj.CopyComplete
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.exe
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.pdb

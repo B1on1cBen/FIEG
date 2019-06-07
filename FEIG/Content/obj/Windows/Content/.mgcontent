@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/Maps/Map1.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/Cursor.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Fonts/Munro.spritefont</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Fonts/Lunchtime.spritefont</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/Icons.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/battleUI.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/MoveArrow.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/MoveTiles.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/FEIG HUD 2.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/Units/Units.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/Portraits/Portraits.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/ActionBar.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/FEIG Menu.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Fonts/MunroSmaller.spritefont</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Fonts/ComicSans.spritefont</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/SoundEffects/back.wav</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/SoundEffects/confirm.wav</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/SoundEffects/defeat.wav</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/SoundEffects/moveCursor.wav</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/SoundEffects/navigateBackward.wav</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/SoundEffects/navigateForward.wav</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/SoundEffects/victory.wav</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/SoundEffects/denied.wav</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/SoundEffects/menu.wav</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Music/Winds Across the Plains.ogg</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/FEIG_Logo.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/TilePalettes/FIEG_ForestTiles.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/TilePalettes/FIEG_MountainTiles.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/TilePalettes/FIEG_PlainsTiles.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/TilePalettes/FIEG_WaterTiles.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/Units/Units 2.png</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Textures/Portraits/Portraits2.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>
