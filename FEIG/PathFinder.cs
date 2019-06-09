@@ -65,7 +65,7 @@ namespace FEIG
             if (unit.moveType == MoveType.Infantry && tile == TileType.Forest)
                 distanceMod--;
 
-            if (unit.DistanceTo(nextPoint) > Unit.moveRanges[(int)unit.moveType] + distanceMod)
+            if (unit.DistanceTo(B) > Unit.moveRanges[(int)unit.moveType] + distanceMod)
                 return false;
 
             // Cannot pass through enemies
@@ -95,10 +95,10 @@ namespace FEIG
                 return false;
 
             if (unit.moveType == MoveType.Infantry && tile == TileType.Forest)
-                distanceMod--;
+                distanceMod -= 1;
 
             // Can't pass onto next point if the current point is a forest and we are infantry (infantry get slowed down by forests.)
-            if (unit.DistanceTo(nextPoint) > Unit.moveRanges[(int)unit.moveType] + distanceMod)
+            if (unit.DistanceTo(B) > Unit.moveRanges[(int)unit.moveType] + distanceMod)
                 return false;
 
             // Cannot pass through enemies

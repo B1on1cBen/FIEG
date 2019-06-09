@@ -221,3 +221,36 @@ C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.csproj.CoreCompileIn
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.csproj.CopyComplete
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.exe
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.pdb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\Units\Units 2.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\Units\Units.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\TilePalettes\FIEG_ForestTiles.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\TilePalettes\FIEG_MountainTiles.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\TilePalettes\FIEG_PlainsTiles.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\TilePalettes\FIEG_WaterTiles.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\Portraits\Portraits.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\Portraits\Portraits2.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\Maps\Map1.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\ActionBar.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\battleUI.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\Cursor.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\FEIG HUD 2.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\FEIG Menu.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\FEIG_Logo.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\Icons.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\MoveArrow.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Textures\MoveTiles.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\SoundEffects\back.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\SoundEffects\confirm.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\SoundEffects\defeat.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\SoundEffects\denied.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\SoundEffects\menu.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\SoundEffects\moveCursor.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\SoundEffects\navigateBackward.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\SoundEffects\navigateForward.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\SoundEffects\victory.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Music\Winds Across the Plains.wma
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Music\Winds Across the Plains.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Fonts\ComicSans.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Fonts\Lunchtime.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Fonts\Munro.xnb
+D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Fonts\MunroSmaller.xnb
