@@ -1,8 +1,8 @@
 ﻿// Written by Ben Gordon and Shawn Murdoch
 
 using FEIG.Graphics;
-using FEIG.Map;
 using FEIG.Input;
+using FEIG.Map;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -413,7 +413,7 @@ namespace FEIG.Units
             return passableTerrain[(int)moveType][(int)tile];
         }
 
-        public bool CanMoveTo(Point point)
+        public bool CanStandOnPoint(Point point)
         {
             // Can move to point if:
             // 1. Within movement range

@@ -11,11 +11,10 @@ namespace FEIG
     {
         public bool ValidPath(Unit unit, Point start, Point goal)
         {
-            // Handle unreachable goals
             if (start == goal)
                 return true;
 
-            if (!unit.CanMoveTo(goal))
+            if (!unit.CanStandOnPoint(goal))
                 return false;
 
             Point currentPoint = start;
@@ -23,22 +22,14 @@ namespace FEIG
             if (ValidAlongX(unit, start, goal))
             {
                 currentPoint.X = goal.X;
-
-                if (ValidAlongY(unit, currentPoint, goal))
-                    return true;
-                else
-                    return false;
+                return ValidAlongY(unit, currentPoint, goal);
             }
             else
             {
                 if (ValidAlongY(unit, start, goal))
                 {
                     currentPoint.Y = goal.Y;
-
-                    if (ValidAlongX(unit, currentPoint, goal))
-                        return true;
-                    else
-                        return false;
+                    return ValidAlongX(unit, currentPoint, goal);
                 }
             }
 
