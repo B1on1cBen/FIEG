@@ -162,3 +162,7 @@ C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Release\FEIG.csproj.CoreCompile
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Release\FEIG.csproj.CopyComplete
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Release\FEIG.exe
 C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Release\FEIG.pdb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Release\Content\Fonts\half-scale\ComicSansHalf.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Release\Content\Fonts\half-scale\LunchtimeHalf.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Release\Content\Fonts\half-scale\MunroHalf.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Release\Content\Fonts\half-scale\MunroSmallerHalf.xnb

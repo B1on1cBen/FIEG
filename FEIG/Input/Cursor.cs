@@ -87,12 +87,11 @@ namespace FEIG.Input
         // Where the cursor can go when in "attack" mode
         public List<Point> validAttackTiles = new List<Point>();
 
-        public Cursor(Point startingPosition, Texture2D texture, Texture2D moveArrowTexture, ActionBar actionBar, PauseMenu pauseMenu)
+        public Cursor(Point startingPosition, AnimatedTexture texture, Texture2D moveArrowTexture, ActionBar actionBar, PauseMenu pauseMenu)
         {
             currentContext = mapContext;
             mapCursorMode = MapCursorMode.MoveCursor;
-
-            this.texture = new AnimatedTexture(new SpriteSheet(texture, new Point(1, 2), Level.tileSize), 500, includeInList: false);
+            this.texture = texture;
             this.moveArrowTexture = moveArrowTexture;
             Cursor.actionBar = actionBar;
             Cursor.pauseMenu = pauseMenu;
@@ -180,11 +179,11 @@ namespace FEIG.Input
                 Vector2 drawPos = new Vector2(position.X * Level.tileSize.X, position.Y * Level.tileSize.Y + HUD.offset);
 
                 if (InMoveUnitMode)
-                    spriteBatch.Draw(moveArrowTexture, drawPos, null, new Rectangle(64, 0, 64, 64), null, 0, null, null, SpriteEffects.None, 0);
+                    spriteBatch.Draw(moveArrowTexture, drawPos, null, new Rectangle(64, 0, 64, 64), null, 0, Game1.WindowScale, null, SpriteEffects.None, 0);
                 else if (mapCursorMode == MapCursorMode.AttackUnit)
-                    spriteBatch.Draw(moveArrowTexture, drawPos, null, new Rectangle(64, 64, 64, 64), null, 0, null, null, SpriteEffects.None, 0);
+                    spriteBatch.Draw(moveArrowTexture, drawPos, null, new Rectangle(64, 64, 64, 64), null, 0, Game1.WindowScale, null, SpriteEffects.None, 0);
                 else
-                    spriteBatch.Draw(texture.GetTexture(), drawPos, null, texture.GetFrameRect(), null, 0, null, null, SpriteEffects.None, 0);
+                    spriteBatch.Draw(texture.GetTexture(), drawPos, null, texture.GetFrameRect(), scale: Game1.WindowScale);
             }
         }
 

@@ -4,6 +4,10 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Fonts/half-scale/ComicSansHalf.spritefont</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Fonts/half-scale/LunchtimeHalf.spritefont</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Fonts/half-scale/MunroHalf.spritefont</File>
+    <File>C:/Users/gordon/No Fun Allowed/FIEG/FEIG/Content/Fonts/half-scale/MunroSmallerHalf.spritefont</File>
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/Maps/Map1.png</File>
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/Cursor.png</File>
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Fonts/Munro.spritefont</File>
@@ -37,4 +41,10 @@
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/Units/Units 2.png</File>
     <File>D:/Projects/Fire Emblem I Guess Redu/Repo/FEIG/Content/Textures/Portraits/Portraits2.png</File>
   </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
 </SourceFileCollection>

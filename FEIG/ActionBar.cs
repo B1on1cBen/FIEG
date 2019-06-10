@@ -14,7 +14,7 @@ namespace FEIG.UI
             Back
         }
 
-        public static readonly int offset = 64;
+        public static int offset = 64;
         public static Cursor cursor;
 
         public BarButtons selectedButton;
@@ -44,9 +44,9 @@ namespace FEIG.UI
         public void Draw(SpriteBatch spriteBatch)
         {
             if (Active)
-                spriteBatch.Draw(buttonTexture, new Vector2(0, Game1.windowSize.Y - offset), null, buttonRects[(int)selectedButton], null, 0, null, null, SpriteEffects.None, 0);
+                spriteBatch.Draw(buttonTexture, new Vector2(0, Game1.windowSize.Y - offset * Game1.WindowScale.Y), null, buttonRects[(int)selectedButton], null, 0, Game1.WindowScale, null, SpriteEffects.None, 0);
             else
-                spriteBatch.DrawString(font, prompt, new Vector2(20, Game1.windowSize.Y - offset + 11), Color.White);
+                spriteBatch.DrawString(font, prompt, new Vector2(20 * Game1.WindowScale.X, Game1.windowSize.Y - offset * Game1.WindowScale.Y + 11 * Game1.WindowScale.Y), Color.White);
         }
 
         public void SetPrompt(string prompt)

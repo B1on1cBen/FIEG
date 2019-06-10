@@ -20,12 +20,13 @@ namespace FEIG
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public static readonly Vector2 WindowScale = new Vector2(.5f, .5f);
 
         Texture2D mapTexture;
         Texture2D plainsTexture;
         Texture2D forestTexture;
+        AnimatedTexture waterTextureAnimated;
         Texture2D mountainsTexture;
-        Texture2D waterTexture;
         Texture2D cursorTexture;
         Texture2D hudTexture;
         Texture2D portraitTexture;
@@ -37,9 +38,9 @@ namespace FEIG
         Texture2D pauseMenuTexture;
 
         public static Texture2D moveTileTexture;
+        public static AnimatedTexture cursorTextureAnimated;
         public static AnimatedTexture moveTileAnimated;
         public static AnimatedTexture attackTileAnimated;
-        public static AnimatedTexture waterTileAnimated;
 
         public static SoundEffect moveCursorSound;
         public static SoundEffect confirmSound;
@@ -72,7 +73,7 @@ namespace FEIG
         ActionBar actionBar;
         PauseMenu pauseMenu;
 
-        public static Vector2 windowSize;
+        public static Point windowSize;
         public static SpriteFont font;
         public static SpriteFont hpFont;
         public static SpriteFont promptFont;
@@ -99,8 +100,6 @@ namespace FEIG
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 384;
-            graphics.PreferredBackBufferHeight = 640;
         }
 
         protected override void Initialize()
@@ -115,22 +114,23 @@ namespace FEIG
             plainsTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_PlainsTiles");
             forestTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_ForestTiles");
             mountainsTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_MountainTiles");
-            waterTexture = Content.Load<Texture2D>("Textures/TilePalettes/FIEG_WaterTiles");
+            waterTextureAnimated = new AnimatedTexture(new SpriteSheet(Content.Load<Texture2D>("Textures/TilePalettes/FIEG_WaterTiles"), new Point(2, 2), new Point(64)), 500);
 
             cursorTexture = Content.Load<Texture2D>("Textures/Cursor");
+            cursorTextureAnimated = new AnimatedTexture(new SpriteSheet(cursorTexture, new Point(1, 2), new Point(64)), 500, includeInList: false);
+
             hudTexture = Content.Load<Texture2D>("Textures/FEIG HUD 2");
             portraitTexture = Content.Load<Texture2D>("Textures/Portraits/Portraits");
             unitMapTexture = Content.Load<Texture2D>("Textures/Units/Units");
             iconTexture = Content.Load<Texture2D>("Textures/Icons");
             actionBarTexture = Content.Load<Texture2D>("Textures/ActionBar");
-            moveTileTexture = Content.Load<Texture2D>("Textures/MoveTiles");
             titleScreen = Content.Load<Texture2D>("Textures/FEIG_Logo");
             moveArrowTexture = Content.Load<Texture2D>("Textures/MoveArrow");
             pauseMenuTexture = Content.Load<Texture2D>("Textures/FEIG Menu");
 
+            moveTileTexture = Content.Load<Texture2D>("Textures/MoveTiles");
             moveTileAnimated = new AnimatedTexture(new SpriteSheet(moveTileTexture, new Point(3, 16), new Point(64)), new Point(0, 0), AnimatedTexture.LoopType.Horizontal, 100);
             attackTileAnimated = new AnimatedTexture(new SpriteSheet(moveTileTexture, new Point(3, 16), new Point(64)), new Point(0, 1), AnimatedTexture.LoopType.Horizontal, 100);
-            waterTileAnimated = new AnimatedTexture(new SpriteSheet(waterTexture, new Point(2, 2), new Point(64)), 500);
         }
 
         protected void LoadSounds()
@@ -153,10 +153,10 @@ namespace FEIG
 
         protected void LoadFonts()
         {
-            font = Content.Load<SpriteFont>("Fonts/Munro");
-            hpFont = Content.Load<SpriteFont>("Fonts/Lunchtime");
-            promptFont = Content.Load<SpriteFont>("Fonts/MunroSmaller");
-            endFont = Content.Load<SpriteFont>("Fonts/ComicSans");
+            font = Content.Load<SpriteFont>("Fonts/half-scale/MunroHalf");
+            hpFont = Content.Load<SpriteFont>("Fonts/half-scale/LunchtimeHalf");
+            promptFont = Content.Load<SpriteFont>("Fonts/half-scale/MunroSmallerHalf");
+            endFont = Content.Load<SpriteFont>("Fonts/half-scale/ComicSansHalf");
         }
 
         protected void InitializeRedTeam()
@@ -278,11 +278,13 @@ namespace FEIG
         {
             level = new Level(
                 mapTexture,
-                new TileSet(new Color(214, 233, 185), TileType.Plains, new SpriteSheet(plainsTexture, new Point(1, 1), new Point(64)), 0),
-                new TileSet(new Color(76, 138, 103), TileType.Forest, new SpriteSheet(forestTexture, new Point(3, 1), new Point(64)), 1),
-                new TileSet(new Color(114, 109, 108), TileType.Mountain, new SpriteSheet(mountainsTexture, new Point(3, 1), new Point(64)), 2),
-                new AnimatedTileSet(new Color(76, 76, 255), TileType.Water, waterTileAnimated, 3)
+                new TileSet(new Color(214, 233, 185), TileType.Plains, new SpriteSheet(plainsTexture, new Point(1, 1), new Point(64))),
+                new TileSet(new Color(76, 138, 103), TileType.Forest, new SpriteSheet(forestTexture, new Point(3, 1), new Point(64))),
+                new TileSet(new Color(114, 109, 108), TileType.Mountain, new SpriteSheet(mountainsTexture, new Point(3, 1), new Point(64))),
+                new AnimatedTileSet(new Color(76, 76, 255), TileType.Water, waterTextureAnimated)
             );
+
+            Level.tileSize = new Point((int)(Level.tileSize.X * WindowScale.X), (int)(Level.tileSize.Y * WindowScale.Y));
         }
 
         protected void InitializeMenus()
@@ -295,11 +297,12 @@ namespace FEIG
 
         protected void SetupWindow()
         {
-            graphics.PreferredBackBufferWidth = Level.levelWidth * Level.tileSize.X;
-            graphics.PreferredBackBufferHeight = Level.levelHeight * Level.tileSize.Y + HUD.offset + ActionBar.offset;
+            int width = Level.levelWidth * Level.tileSize.X;
+            int height = Level.levelHeight * Level.tileSize.Y + (int)((HUD.offset + ActionBar.offset) * WindowScale.Y);
+            windowSize = new Point(width, height);
+            graphics.PreferredBackBufferWidth = windowSize.X;
+            graphics.PreferredBackBufferHeight = windowSize.Y;
             graphics.ApplyChanges();
-
-            windowSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
 
         protected override void LoadContent()
@@ -315,7 +318,7 @@ namespace FEIG
             InitializeUnits();
             InitializeMenus();
 
-            cursor = new Cursor(new Point(2, 7), this.cursorTexture, this.moveArrowTexture, actionBar, pauseMenu);
+            cursor = new Cursor(new Point(2, 7), cursorTextureAnimated, moveArrowTexture, actionBar, pauseMenu);
             ActionBar.cursor = cursor;
             PauseMenu.cursor = cursor;
         }
@@ -426,7 +429,7 @@ namespace FEIG
             spriteBatch.Begin();
             if (gameState == GameStates.TitleScreen)
             {
-                spriteBatch.Draw(titleScreen, new Rectangle(0, 0, (int)windowSize.X, (int)windowSize.Y), Color.White);
+                spriteBatch.Draw(titleScreen, new Rectangle(0, 0, windowSize.X, windowSize.Y), Color.White);
             }
             else if (gameState == GameStates.GameOver)
             {
@@ -441,9 +444,6 @@ namespace FEIG
             else
             {
                 DrawGame();
-
-                // IT DRAWS
-                //spriteBatch.Draw(waterTileAnimated.GetTexture(), new Vector2(0, 0), null, waterTileAnimated.GetFrameRect(), null, 0, null, null, SpriteEffects.None, 0);
             }
 
             if (gameState == GameStates.PlayerTurn)
@@ -478,14 +478,14 @@ namespace FEIG
             foreach (Point point in cursor.validMoveTiles)
             {
                 if (GetUnit(point) == null)
-                    this.spriteBatch.Draw(moveTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, moveTileAnimated.GetFrameRect());
+                    this.spriteBatch.Draw(moveTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, moveTileAnimated.GetFrameRect(), scale: WindowScale);
             }
         }
 
         protected void DrawValidAttackTiles()
         {
             foreach (Point point in Cursor.selectedUnit.validAttackPoints)
-                this.spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect());
+                this.spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect(), scale: WindowScale);
         }
 
         protected void DrawDangerZone()
@@ -495,7 +495,7 @@ namespace FEIG
                 if (unit.team == Team.Red && unit.selected && unit.alive)
                 {
                     foreach (Point point in unit.validAttackPoints)
-                        spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect());
+                        spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect(), scale: WindowScale);
                 }
             }
         }

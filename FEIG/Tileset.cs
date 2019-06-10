@@ -11,12 +11,12 @@ namespace FEIG.Map
         public Color mapColor;
         public TileType tileType;
         public SpriteSheet spriteSheet;
-        public int index;
+        public int Index { get; private set; }
         protected static Random rand;
 
         protected TileSet() { }
 
-        public TileSet(Color mapColor, TileType tileType, SpriteSheet spriteSheet, int index)
+        public TileSet(Color mapColor, TileType tileType, SpriteSheet spriteSheet)
         {
             if (rand == null)
                 rand = new Random();
@@ -24,12 +24,17 @@ namespace FEIG.Map
             this.mapColor = mapColor;
             this.tileType = tileType;
             this.spriteSheet = spriteSheet;
-            this.index = index;
+            this.Index = Index;
+        }
+
+        public void SetIndex(int index)
+        {
+            this.Index = index;
         }
 
         public virtual Tile GetTile(int x, int y)
         {
-            return new Tile(x, y, spriteSheet.texture, GetRandomRect(), tileType, index, false);
+            return new Tile(x, y, spriteSheet.texture, GetRandomRect(), tileType, Index, false);
         }
 
         protected Rectangle GetRandomRect()

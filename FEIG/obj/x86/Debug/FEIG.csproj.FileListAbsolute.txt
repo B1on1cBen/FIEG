@@ -254,3 +254,8 @@ D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Con
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Fonts\Lunchtime.xnb
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Fonts\Munro.xnb
 D:\Projects\Fire Emblem I Guess Redu\Repo\FEIG\bin\Windows\x86\Debug\Content\Content\Fonts\MunroSmaller.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\obj\x86\Debug\FEIG.csprojAssemblyReference.cache
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Fonts\half-scale\ComicSansHalf.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Fonts\half-scale\LunchtimeHalf.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Fonts\half-scale\MunroHalf.xnb
+C:\Users\gordon\No Fun Allowed\FIEG\FEIG\bin\Windows\x86\Debug\Content\Fonts\half-scale\MunroSmallerHalf.xnb

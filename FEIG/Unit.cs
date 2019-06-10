@@ -169,7 +169,7 @@ namespace FEIG.Units
                     color = Color.Gray;
 
                 // Draw the unit sprite
-                spriteBatch.Draw(mapTexture.texture, new Vector2(Position.X * Level.tileSize.X, Position.Y * Level.tileSize.Y + HUD.offset - mapUnitSize.Y), null, mapTexture.rect, null, 0, null, color, SpriteEffects.None, 1);
+                spriteBatch.Draw(mapTexture.texture, new Vector2(Position.X * Level.tileSize.X, Position.Y * Level.tileSize.Y + HUD.offset - mapUnitSize.Y * Game1.WindowScale.Y), null, mapTexture.rect, null, 0, Game1.WindowScale, color, SpriteEffects.None, 1);
             }
         }
 

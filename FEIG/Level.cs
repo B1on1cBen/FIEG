@@ -33,6 +33,12 @@ namespace FEIG.Map
             blueSpawns = new Point[4];
 
             Level.palette = palette;
+
+            for (int i = 0; i < palette.Length; i++)
+            {
+                palette[i].SetIndex(i);
+            }
+
             grid = new Tile[levelWidth, levelHeight];
             ReadMapTexture(palette, map);
         }
@@ -67,7 +73,7 @@ namespace FEIG.Map
             if (currentColor == blueSpawnColor)
             {
                 blueSpawns[blueSpawnsFound] = new Point(x, y);
-                grid[x, y] = palette[0].GetTile(x * tileSize.X, y * tileSize.Y + HUD.offset);
+                grid[x, y] = palette[0].GetTile((int)(x * tileSize.X * Game1.WindowScale.X), (int)((y * tileSize.Y + HUD.offset) * Game1.WindowScale.Y));
                 blueSpawnsFound++;
                 return true;
             }
@@ -79,7 +85,7 @@ namespace FEIG.Map
             if (currentColor == redSpawnColor)
             {
                 redSpawns[redSpawnsFound] = new Point(x, y);
-                grid[x, y] = palette[0].GetTile(x * tileSize.X, y * tileSize.Y + HUD.offset);
+                grid[x, y] = palette[0].GetTile((int)(x * tileSize.X * Game1.WindowScale.X), (int)((y * tileSize.Y + HUD.offset) * Game1.WindowScale.Y));
                 redSpawnsFound++;
                 return true;
             }
@@ -92,12 +98,12 @@ namespace FEIG.Map
             {
                 if (currentColor == palette[i].mapColor)
                 {
-                    grid[x, y] = palette[i].GetTile(x * tileSize.X, y * tileSize.Y + HUD.offset);
+                    grid[x, y] = palette[i].GetTile((int)(x * tileSize.X * Game1.WindowScale.X), (int)((y * tileSize.Y + HUD.offset) * Game1.WindowScale.Y));
                     return;
                 }
             }
 
-            grid[x, y] = palette[0].GetTile(x * tileSize.X, y * tileSize.Y + HUD.offset);
+            grid[x, y] = palette[0].GetTile((int)(x * tileSize.X * Game1.WindowScale.X), (int)((y * tileSize.Y + HUD.offset) * Game1.WindowScale.Y));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -108,11 +114,11 @@ namespace FEIG.Map
                 {
                     AnimatedTileSet animatedTileSet = (AnimatedTileSet)palette[tile.tilesetIndex];
                     AnimatedTexture animatedTexture = animatedTileSet.animatedTexture;
-                    spriteBatch.Draw(animatedTexture.GetTexture(), tile.position, null, animatedTexture.GetFrameRect(), null, 0, null, null, SpriteEffects.None, 0);             
+                    spriteBatch.Draw(animatedTexture.GetTexture(), tile.position, null, animatedTexture.GetFrameRect(), null, 0, Game1.WindowScale, null, SpriteEffects.None, 0);             
                 }
                 else
                 {
-                    spriteBatch.Draw(tile.texture, tile.position, null, tile.rect, null, 0, Vector2.One, Color.White, SpriteEffects.None, 0);
+                    spriteBatch.Draw(tile.texture, tile.position, null, tile.rect, null, 0, Game1.WindowScale, Color.White, SpriteEffects.None, 0);
                 }
             }
         }

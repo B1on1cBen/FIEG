@@ -10,7 +10,7 @@ namespace FEIG.Map
     {
         public AnimatedTexture animatedTexture;
 
-        public AnimatedTileSet(Color mapColor, TileType tileType, AnimatedTexture animatedTexture, int index)
+        public AnimatedTileSet(Color mapColor, TileType tileType, AnimatedTexture animatedTexture)
         {
             if (rand == null)
                 rand = new Random();
@@ -19,12 +19,11 @@ namespace FEIG.Map
             this.tileType = tileType;
             this.animatedTexture = animatedTexture;
             spriteSheet = animatedTexture.SpriteSheet;
-            this.index = index;
         }
 
         public override Tile GetTile(int x, int y)
         {
-            return new Tile(x, y, spriteSheet.texture, GetRandomRect(), tileType, index, true);
+            return new Tile(x, y, spriteSheet.texture, GetRandomRect(), tileType, Index, true);
         }
     }
 }

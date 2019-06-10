@@ -46,7 +46,7 @@ namespace FEIG.UI
         public void Draw(SpriteBatch spriteBatch)
         {
             if (Active)
-                spriteBatch.Draw(menuTexture, new Vector2(Game1.windowSize.X / 2 - menuTexture.Width / 6, Game1.windowSize.Y / 2 - menuTexture.Height / 2), null, optionRects[(int)selectedOption], null, 0, null, null, SpriteEffects.None, 0);
+                spriteBatch.Draw(menuTexture, new Vector2(Game1.windowSize.X / 2 - menuTexture.Width / 6 * Game1.WindowScale.X, Game1.windowSize.Y / 2 - menuTexture.Height / 2 * Game1.WindowScale.Y), null, optionRects[(int)selectedOption], null, 0, Game1.WindowScale, null, SpriteEffects.None, 0);
         }
 
         public void OnDown()
