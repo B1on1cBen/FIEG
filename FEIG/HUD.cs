@@ -24,7 +24,6 @@ namespace FEIG.Input
             this.icons = icons;
             this.defaultFont = defaultFont;
             this.hpFont = hpFont;
-            offset = (int)(offset * Game1.WindowScale.X);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -74,7 +73,7 @@ namespace FEIG.Input
             // Draw the name of the tile that the cursor is looking at
             string tileTypeString = Tile.TileTypeStrings[(int)Cursor.hoveredTile.type];
             Vector2 stringSize = defaultFont.MeasureString(tileTypeString);
-            Vector2 position = new Vector2(Game1.windowSize.X - stringSize.X - 17 * Game1.WindowScale.X, offset - 43 * Game1.WindowScale.Y);
+            Vector2 position = new Vector2(Game1.windowSize.X - stringSize.X - 17 * Game1.WindowScale.X, offset * Game1.WindowScale.Y - 43 * Game1.WindowScale.Y);
 
             spriteBatch.DrawString(defaultFont, tileTypeString, position, Color.White);
         }

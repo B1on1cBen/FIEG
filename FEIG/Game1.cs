@@ -478,14 +478,14 @@ namespace FEIG
             foreach (Point point in cursor.validMoveTiles)
             {
                 if (GetUnit(point) == null)
-                    this.spriteBatch.Draw(moveTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, moveTileAnimated.GetFrameRect(), scale: WindowScale);
+                    this.spriteBatch.Draw(moveTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset * WindowScale.Y), null, moveTileAnimated.GetFrameRect(), scale: WindowScale);
             }
         }
 
         protected void DrawValidAttackTiles()
         {
             foreach (Point point in Cursor.selectedUnit.validAttackPoints)
-                this.spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect(), scale: WindowScale);
+                this.spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset * WindowScale.Y), null, attackTileAnimated.GetFrameRect(), scale: WindowScale);
         }
 
         protected void DrawDangerZone()
@@ -495,7 +495,7 @@ namespace FEIG
                 if (unit.team == Team.Red && unit.selected && unit.alive)
                 {
                     foreach (Point point in unit.validAttackPoints)
-                        spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset), null, attackTileAnimated.GetFrameRect(), scale: WindowScale);
+                        spriteBatch.Draw(attackTileAnimated.GetTexture(), new Vector2(point.X * Level.tileSize.X, point.Y * Level.tileSize.Y + HUD.offset * WindowScale.Y), null, attackTileAnimated.GetFrameRect(), scale: WindowScale);
                 }
             }
         }

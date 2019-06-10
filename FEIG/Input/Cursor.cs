@@ -33,7 +33,7 @@ namespace FEIG.Input
         public static Unit hoveredUnit;
         public static Unit selectedUnit;
 
-        public bool active = true;
+        public bool Active { get; private set; } = true;
 
         private static Point position;
         private static MapCursorMode mapCursorMode;
@@ -108,7 +108,7 @@ namespace FEIG.Input
         {
             inputHeldThisFrame = false;
 
-            if (active)
+            if (Active)
             {
                 if (Game1.Input["Confirm"].IsPressed())
                     OnConfirm();
@@ -176,7 +176,7 @@ namespace FEIG.Input
         {
             if (currentContext == mapContext)
             {
-                Vector2 drawPos = new Vector2(position.X * Level.tileSize.X, position.Y * Level.tileSize.Y + HUD.offset);
+                Vector2 drawPos = new Vector2(position.X * Level.tileSize.X, position.Y * Level.tileSize.Y + HUD.offset * Game1.WindowScale.Y);
 
                 if (InMoveUnitMode)
                     spriteBatch.Draw(moveArrowTexture, drawPos, null, new Rectangle(64, 0, 64, 64), null, 0, Game1.WindowScale, null, SpriteEffects.None, 0);
