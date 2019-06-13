@@ -20,7 +20,8 @@ namespace FEIG
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public static readonly Vector2 WindowScale = new Vector2(.5f, .5f);
+        BasicEffect effect;
+        public static readonly Vector2 WindowScale = new Vector2(1f, .5f);
 
         Texture2D mapTexture;
         Texture2D plainsTexture;
@@ -104,6 +105,8 @@ namespace FEIG
 
         protected override void Initialize()
         {
+            effect = new BasicEffect(graphics.GraphicsDevice);
+
             base.Initialize();
         }
 
@@ -457,19 +460,19 @@ namespace FEIG
         protected void DrawGame()
         {
             // Rendering the hud on the bottom so that units don't get cut off if they are on the top row
-            hud.Draw(spriteBatch); 
+            hud.Draw(spriteBatch);
             actionBar.Draw(spriteBatch);
-            level.Draw(spriteBatch);
+            level.Draw(graphics, effect);
 
-            DrawDangerZone();
+            //DrawDangerZone();
 
-            if (!actionBar.Active && cursor.InMoveUnitMode)
-                DrawValidMoveTiles();
+            //if (!actionBar.Active && cursor.InMoveUnitMode)
+            //    DrawValidMoveTiles();
 
-            if (!actionBar.Active && cursor.InAttackMode)
-                DrawValidAttackTiles();
+            //if (!actionBar.Active && cursor.InAttackMode)
+            //    DrawValidAttackTiles();
 
-            DrawUnits(spriteBatch);
+            //DrawUnits(spriteBatch);
             pauseMenu.Draw(spriteBatch);
         }
 

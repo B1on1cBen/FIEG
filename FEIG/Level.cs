@@ -27,8 +27,20 @@ namespace FEIG.Map
         public static TileSet[] palette;
         public static Point tileSize = new Point(64, 64);
 
+        VertexPositionTexture[] floorVerts;
+
         public Level(Texture2D map, params TileSet[] palette)
         {
+            floorVerts = new VertexPositionTexture[6];
+
+            floorVerts[0].Position = new Vector3(-20, -20, 0);
+            floorVerts[1].Position = new Vector3(-20, 20, 0);
+            floorVerts[2].Position = new Vector3(20, -20, 0);
+
+            floorVerts[3].Position = floorVerts[1].Position;
+            floorVerts[4].Position = new Vector3(20, 20, 0);
+            floorVerts[5].Position = floorVerts[2].Position;
+
             redSpawns = new Point[4];
             blueSpawns = new Point[4];
 
@@ -106,20 +118,51 @@ namespace FEIG.Map
             grid[x, y] = palette[0].GetTile((int)(x * tileSize.X * Game1.WindowScale.X), (int)((y * tileSize.Y + HUD.offset) * Game1.WindowScale.Y));
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        //public void Draw(SpriteBatch spriteBatch)
+        //{
+        //    foreach (Tile tile in grid)
+        //    {
+                
+        //    }
+        //}
+
+        public void Draw(GraphicsDeviceManager graphics, BasicEffect effect)
         {
-            foreach (Tile tile in grid)
+            // The assignment of effect.View and effect.Projection
+            // are nearly identical to the code in the Model drawing code.
+            var cameraPosition = new Vector3(0, 40, 20);
+            var cameraLookAtVector = Vector3.Zero;
+            var cameraUpVector = Vector3.UnitZ;
+
+            effect.View = Matrix.CreateLookAt(
+                cameraPosition, cameraLookAtVector, cameraUpVector);
+
+            float aspectRatio =
+                graphics.PreferredBackBufferWidth / (float)graphics.PreferredBackBufferHeight;
+            float fieldOfView = MathHelper.PiOver4;
+            float nearClipPlane = 1;
+            float farClipPlane = 200;
+
+            effect.Projection = Matrix.CreatePerspectiveFieldOfView(
+                fieldOfView, aspectRatio, nearClipPlane, farClipPlane);
+
+            effect.TextureEnabled = true;
+            //effect.Texture = ;
+
+            foreach (var pass in effect.CurrentTechnique.Passes)
             {
-                if (tile.animated)
-                {
-                    AnimatedTileSet animatedTileSet = (AnimatedTileSet)palette[tile.tilesetIndex];
-                    AnimatedTexture animatedTexture = animatedTileSet.animatedTexture;
-                    spriteBatch.Draw(animatedTexture.GetTexture(), tile.position, null, animatedTexture.GetFrameRect(), null, 0, Game1.WindowScale, null, SpriteEffects.None, 0);             
-                }
-                else
-                {
-                    spriteBatch.Draw(tile.texture, tile.position, null, tile.rect, null, 0, Game1.WindowScale, Color.White, SpriteEffects.None, 0);
-                }
+                pass.Apply();
+
+                graphics.GraphicsDevice.DrawUserPrimitives(
+                    // We’ll be rendering two trinalges
+                    PrimitiveType.TriangleList,
+                    // The array of verts that we want to render
+                    floorVerts,
+                    // The offset, which is 0 since we want to start 
+                    // at the beginning of the floorVerts array
+                    0,
+                    // The number of triangles to draw
+                    2);
             }
         }
 
